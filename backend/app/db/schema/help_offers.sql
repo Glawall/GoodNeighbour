@@ -1,3 +1,4 @@
+
 CREATE TABLE help_offers (
     helper_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
     help_request_id INT REFERENCES help_requests(id) ON DELETE CASCADE NOT NULL,

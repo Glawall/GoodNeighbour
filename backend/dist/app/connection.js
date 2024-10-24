@@ -5,12 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
 const dotenv_1 = __importDefault(require("dotenv"));
-const ENV = process.env.NODE_ENV || "test";
+const ENV = process.env.NODE_ENV || "production";
 dotenv_1.default.config({ path: `${__dirname}/../.env.${ENV}` });
 if (!process.env.PGDATABASE && !process.env.DATABASE_URL) {
     throw new Error("PGDATABASE or DATABASE_URL not set");
 }
-console.log(ENV);
+console.log(ENV, "in connection");
 const config = {};
 if (ENV === "production") {
     config.connectionString = process.env.DATABASE_URL;
