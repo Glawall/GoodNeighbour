@@ -1,0 +1,44 @@
+{
+  "name": "community",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node dist/app/server.js",
+    "build": "rimraf ./dist && tsc",
+    "dev": "nodemon --exec ts-node app/server.ts",
+    "seed": "ts-node ./app/db/seeds/run-seed.ts",
+    "seed-dev": "NODE_ENV=development npm run seed",
+    "seed-prod": "NODE_ENV=production npm run seed",
+    "seed-test": "NODE_ENV=test npm run seed",
+    "setup-dbs": "psql -f ./app/db/setup.sql"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.6",
+    "@types/supertest": "^6.0.2",
+    "axios": "^1.7.7",
+    "axios-mock-adapter": "^2.1.0",
+    "jest-extended": "^4.0.2",
+    "jest-sorted": "^1.0.15",
+    "nodemon": "^3.1.7",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "supertest": "^7.0.0",
+    "@types/pg": "^8.11.10",
+    "@types/pg-format": "^1.0.5",
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.0",
+    "pg-format": "^1.0.4"
+  }
+}
