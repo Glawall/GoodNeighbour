@@ -16,7 +16,6 @@ const seed_1 = __importDefault(require("./seed"));
 const connection_1 = __importDefault(require("../../connection"));
 const test_1 = require("./data/test");
 const development_1 = require("./data/development");
-// const devData: Data[] = []; // Uncomment and define your dev data structure
 const ENV = process.env.NODE_ENV || "development";
 const runSeed = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -30,7 +29,7 @@ const runSeed = (data) => __awaiter(void 0, void 0, void 0, function* () {
         yield connection_1.default.end();
     }
 });
-const dataToSeed = ENV === "test" ? test_1.testData : development_1.devData; // Use appropriate data based on the environment
+const dataToSeed = ENV === "test" ? test_1.testData : development_1.devData;
 if (dataToSeed) {
     runSeed(dataToSeed);
 }

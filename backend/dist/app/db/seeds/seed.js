@@ -16,6 +16,7 @@ const pg_format_1 = __importDefault(require("pg-format"));
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
 const connection_1 = __importDefault(require("../../connection"));
+const preloadHelpTypes_1 = require("../../utils/preloadHelpTypes");
 const schemaFiles = [
     "users.sql",
     "help_types.sql",
@@ -64,6 +65,7 @@ const seed = (_a) => __awaiter(void 0, [_a], void 0, function* ({ usersData, typ
         yield connection_1.default.query(insertUsersStr);
         const insertHelpTypeDataStr = (0, pg_format_1.default)("INSERT INTO help_types (name, description) VALUES %L", typesData.map(({ name, description }) => [name, description]));
         yield connection_1.default.query(insertHelpTypeDataStr);
+        yield (0, preloadHelpTypes_1.preloadHelpTypes)();
         const insertHelpRequestsDataStr = (0, pg_format_1.default)("INSERT INTO help_requests (title, author_id, help_type_id, description, created_at, req_date, status) VALUES %L", helpRequestsData.map(({ title, author_id, help_type_id, description, created_at, req_date, status, }) => [
             title,
             author_id,
