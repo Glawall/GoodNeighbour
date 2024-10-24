@@ -3,6 +3,7 @@ import { readFileSync } from "fs";
 import path from "path";
 import db from "../../connection";
 import { Data } from "./data/test";
+import { preloadHelpTypes } from "../../utils/preloadHelpTypes";
 
 const schemaFiles = [
   "users.sql",
@@ -87,6 +88,8 @@ const seed = async ({
     );
 
     await db.query(insertHelpTypeDataStr);
+
+    await preloadHelpTypes();
 
     const insertHelpRequestsDataStr = format(
       "INSERT INTO help_requests (title, author_id, help_type_id, description, created_at, req_date, status) VALUES %L",
