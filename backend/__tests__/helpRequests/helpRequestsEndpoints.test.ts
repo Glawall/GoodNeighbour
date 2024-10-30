@@ -21,7 +21,7 @@ afterAll(async () => {
   await db.end();
 });
 
-describe("getAllHelpRequests", () => {
+describe.only("getAllHelpRequests", () => {
   test("200 - GET: responds with an array of help request objects with the appropriate properties", async () => {
     const {
       body: { helpRequests },
@@ -35,6 +35,15 @@ describe("getAllHelpRequests", () => {
       expect(helpRequest).toHaveProperty("created_at");
       expect(helpRequest).toHaveProperty("req_date");
       expect(helpRequest).toHaveProperty("status");
+      expect(helpRequest).toHaveProperty("id");
+      expect(helpRequest).toHaveProperty("title");
+      expect(helpRequest).toHaveProperty("author_first_name");
+      expect(helpRequest).toHaveProperty("author_last_name");
+      expect(helpRequest).toHaveProperty("author_address");
+      expect(helpRequest).toHaveProperty("author_username");
+      expect(helpRequest).toHaveProperty("author_postcode");
+      expect(helpRequest).toHaveProperty("author_longitude");
+      expect(helpRequest).toHaveProperty("author_latitude");
     });
   });
 });

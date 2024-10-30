@@ -164,6 +164,7 @@ describe("updateUser", () => {
 describe("getAllUsers", () => {
     test("200 - GET: Responds with an array of all users", () => __awaiter(void 0, void 0, void 0, function* () {
         const { body: { users }, } = yield (0, supertest_1.default)(app_1.default).get("/api/users").expect(200);
+        expect(Array.isArray(users)).toBe(true);
         users.forEach((user) => {
             expect(user).toHaveProperty("id");
             expect(user).toHaveProperty("first_name");

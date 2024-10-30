@@ -203,7 +203,8 @@ describe("getAllUsers", () => {
     const {
       body: { users },
     } = await request(app).get("/api/users").expect(200);
-    users.forEach((user: User[]) => {
+    expect(Array.isArray(users)).toBe(true);
+    users.forEach((user: User) => {
       expect(user).toHaveProperty("id");
       expect(user).toHaveProperty("first_name");
       expect(user).toHaveProperty("last_name");
