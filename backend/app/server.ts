@@ -1,7 +1,7 @@
 import app from "./app";
 import { preloadHelpTypes } from "./utils/preloadHelpTypes";
 
-const { PORT = 8001 } = process.env;
+const { PORT = 8003 } = process.env;
 
 const startServer = async () => {
   try {

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 const ENV = process.env.NODE_ENV || "production";
 
 dotenv.config({ path: `${__dirname}/../.env.${ENV}` });
+console.log(ENV, "in connection");
 
 if (!process.env.PGDATABASE && !process.env.DATABASE_URL) {
   throw new Error("PGDATABASE or DATABASE_URL not set");
