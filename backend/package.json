@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "start": "node -r dotenv/config dist/app/server.js",
-    "build": "npx rimraf ./dist && tsc",
+    "build": "npx rimraf ./dist && tsc npm install",
     "dev": "nodemon --exec ts-node dist/app/server.js",
     "seed": "ts-node ./app/db/seeds/run-seed.ts",
     "seed-dev": "NODE_ENV=development npm run seed",
