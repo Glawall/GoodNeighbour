@@ -18,11 +18,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/axios": "^0.14.4",
-    "@types/axios-mock-adapter": "^1.10.4",
-    "@types/express": "^5.0.0",
     "@types/node": "^22.8.5",
-    "@types/supertest": "^6.0.2",
     "axios": "^1.7.7",
     "axios-mock-adapter": "^2.1.0",
     "jest-extended": "^4.0.2",
@@ -34,6 +30,10 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/axios-mock-adapter": "^1.10.4",
+    "@types/express": "^5.0.0",
+    "@types/supertest": "^6.0.2",
     "@types/cors": "^2.8.17",
     "@types/jest": "^29.5.13",
     "@types/pg": "^8.11.10",
