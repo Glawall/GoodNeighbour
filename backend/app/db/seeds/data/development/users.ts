@@ -19,8 +19,7 @@ export const usersData: User[] = [
   {
     username: "Cuthbert85",
     email: "Cuthbert_Wilkinson47@gmail.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1055.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=Cuthbert85",
     age: 72,
     first_name: "Cuthbert",
     last_name: "Wilkinson",
@@ -37,7 +36,7 @@ export const usersData: User[] = [
     username: "MadeleineMcDermott",
     email: "Madeleine.McDermott@yahoo.com",
     avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1179.jpg",
+      "https://api.dicebear.com/6.x/adventurer/svg?seed=MadeleineMcDermott",
     age: 68,
     first_name: "Madeleine",
     last_name: "McDermott",
@@ -54,7 +53,7 @@ export const usersData: User[] = [
     username: "AlfredJohnson",
     email: "Alfred.Johnson@hotmail.com",
     avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1032.jpg",
+      "https://api.dicebear.com/6.x/adventurer/svg?seed=AlfredJohnson",
     age: 75,
     first_name: "Alfred",
     last_name: "Johnson",
@@ -71,7 +70,7 @@ export const usersData: User[] = [
     username: "EmilyThompson",
     email: "Emily.Thompson@gmail.com",
     avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1174.jpg",
+      "https://api.dicebear.com/6.x/adventurer/svg?seed=EmilyThompson",
     age: 71,
     first_name: "Emily",
     last_name: "Thompson",
@@ -87,8 +86,7 @@ export const usersData: User[] = [
   {
     username: "JamesWilson",
     email: "James.Wilson@yahoo.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1096.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=JamesWilson",
     age: 67,
     first_name: "James",
     last_name: "Wilson",
@@ -104,8 +102,7 @@ export const usersData: User[] = [
   {
     username: "SarahJones",
     email: "Sarah.Jones@hotmail.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1127.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=SarahJones",
     age: 70,
     first_name: "Sarah",
     last_name: "Jones",
@@ -121,8 +118,7 @@ export const usersData: User[] = [
   {
     username: "RobertBrown",
     email: "Robert.Brown@gmail.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1050.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=RobertBrown",
     age: 73,
     first_name: "Robert",
     last_name: "Brown",
@@ -139,7 +135,7 @@ export const usersData: User[] = [
     username: "MichaelTaylor",
     email: "Michael.Taylor@yahoo.com",
     avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1071.jpg",
+      "https://api.dicebear.com/6.x/adventurer/svg?seed=MichaelTaylor",
     age: 69,
     first_name: "Michael",
     last_name: "Taylor",
@@ -155,8 +151,7 @@ export const usersData: User[] = [
   {
     username: "DavidThomas",
     email: "David.Thomas@hotmail.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1024.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=DavidThomas",
     age: 74,
     first_name: "David",
     last_name: "Thomas",
@@ -170,13 +165,12 @@ export const usersData: User[] = [
     longitude: -0.1918,
   },
   {
-    username: "maxbmaapc",
+    username: "Asinbrick",
     email: "David.Thomas@hotmail.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1024.jpg",
-    age: 23,
-    first_name: "Maksim",
-    last_name: "Lukianenko",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=Asinbrick",
+    age: 32,
+    first_name: "Greg",
+    last_name: "Wall",
     about: "I enjoy reading and going for walks in the park",
     address: "18 Westbourne Grove Terrace, London",
     postcode: "W2 5PN",
@@ -189,8 +183,7 @@ export const usersData: User[] = [
   {
     username: "OliverSmith",
     email: "Oliver.Smith@example.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1010.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=OliverSmith",
     age: 65,
     first_name: "Oliver",
     last_name: "Smith",
@@ -206,8 +199,7 @@ export const usersData: User[] = [
   {
     username: "EmilyJohnson",
     email: "Emily.Johnson@example.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1011.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=EmilyJohnson",
     age: 62,
     first_name: "Emily",
     last_name: "Johnson",
@@ -223,8 +215,7 @@ export const usersData: User[] = [
   {
     username: "JackDavis",
     email: "Jack.Davis@example.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1012.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=JackDavis",
     age: 74,
     first_name: "Jack",
     last_name: "Davis",
@@ -241,7 +232,7 @@ export const usersData: User[] = [
     username: "SophiaMartinez",
     email: "Sophia.Martinez@example.com",
     avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1013.jpg",
+      "https://api.dicebear.com/6.x/adventurer/svg?seed=SophiaMartinez",
     age: 58,
     first_name: "Sophia",
     last_name: "Martinez",
@@ -257,8 +248,7 @@ export const usersData: User[] = [
   {
     username: "LiamGarcia",
     email: "Liam.Garcia@example.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1014.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=LiamGarcia",
     age: 33,
     first_name: "Liam",
     last_name: "Garcia",
@@ -274,8 +264,7 @@ export const usersData: User[] = [
   {
     username: "IsabellaLee",
     email: "Isabella.Lee@example.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1015.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=IsabellaLee",
     age: 29,
     first_name: "Isabella",
     last_name: "Lee",
@@ -291,8 +280,7 @@ export const usersData: User[] = [
   {
     username: "EthanWilson",
     email: "Ethan.Wilson@example.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1016.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=EthanWilson",
     age: 40,
     first_name: "Ethan",
     last_name: "Wilson",
@@ -308,8 +296,7 @@ export const usersData: User[] = [
   {
     username: "MiaWhite",
     email: "Mia.White@example.com",
-    avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1017.jpg",
+    avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=MiaWhite",
     age: 36,
     first_name: "Mia",
     last_name: "White",
@@ -326,7 +313,7 @@ export const usersData: User[] = [
     username: "BenjaminMartin",
     email: "Benjamin.Martin@example.com",
     avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1018.jpg",
+      "https://api.dicebear.com/6.x/adventurer/svg?seed=BenjaminMartin",
     age: 49,
     first_name: "Benjamin",
     last_name: "Martin",
@@ -343,7 +330,7 @@ export const usersData: User[] = [
     username: "CharlotteAnderson",
     email: "Charlotte.Anderson@example.com",
     avatar_url:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1019.jpg",
+      "https://api.dicebear.com/6.x/adventurer/svg?seed=CharlotteAnderson",
     age: 52,
     first_name: "Charlotte",
     last_name: "Anderson",

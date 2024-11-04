@@ -218,6 +218,8 @@ describe("getAllUsers", () => {
       expect(user).toHaveProperty("age");
       expect(user).toHaveProperty("help_radius");
       expect(user).toHaveProperty("additional_contacts");
+      expect(user).toHaveProperty("longitude");
+      expect(user).toHaveProperty("latitude");
     });
   });
 });
