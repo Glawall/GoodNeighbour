@@ -44,6 +44,7 @@ describe.only("getAllHelpRequests", () => {
       expect(helpRequest).toHaveProperty("author_postcode");
       expect(helpRequest).toHaveProperty("author_longitude");
       expect(helpRequest).toHaveProperty("author_latitude");
+      expect(helpRequest).toHaveProperty("help_type");
     });
   });
 });
