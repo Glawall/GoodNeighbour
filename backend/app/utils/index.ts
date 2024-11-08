@@ -3,4 +3,5 @@ export {
   helpRequestExists,
   helpOfferExists,
   userExists,
+  helpTypeExists,
 } from "./checkExists";

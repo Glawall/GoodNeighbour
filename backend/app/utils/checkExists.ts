@@ -4,6 +4,7 @@ import * as commentsRepo from "../repositories/comments";
 import * as helpRequestsRepo from "../repositories/helpRequests";
 import * as helpOffersRepo from "../repositories/helpOffers";
 import * as usersRepo from "../repositories/users";
+import * as helpTypesRepo from "../repositories/helpTypes";
 
 export const checkExists = async (
   getById: (id: number) => Promise<any>,
@@ -55,5 +56,13 @@ export const userExists = async (user_id: number) => {
     usersRepo.getByUserId,
     user_id,
     errors.USER_NOT_FOUND
+  );
+};
+
+export const helpTypeExists = async (help_type_id: number) => {
+  return await checkExists(
+    helpTypesRepo.getByHelpTypeId,
+    help_type_id,
+    errors.HELP_TYPE_NOT_FOUND
   );
 };

@@ -1,5 +1,7 @@
 import db from "../../connection";
 import { HelpRequest } from "../../db/seeds/data/test/help-requests";
+import { AppError } from "../../errors/AppError";
+import { errors } from "../../errors/errors";
 
 export const getAllHelpRequests = async (
   sort_by: string = "created_at",
@@ -7,13 +9,17 @@ export const getAllHelpRequests = async (
   help_type?: string
 ): Promise<HelpRequest[]> => {
   const validSortBys = ["author_username", "help_type", "created_at"];
-  const validOrders = ["asc", "desc"];
+  const validOrders = ["desc", "asc"];
+  if (sort_by && !validSortBys.includes(sort_by)) {
+    throw new AppError(errors.VALIDATION_ERROR);
+  }
 
-  const sortBy = validSortBys.includes(sort_by) ? sort_by : "created_at";
-  const orderBy = validOrders.includes(order) ? order : "desc";
+  if (order && !validOrders.includes(order)) {
+    throw new AppError(errors.VALIDATION_ERROR);
+  }
 
   let queryString = `
-    SELECT 
+    SELECT
       help_requests.id AS id,
       help_requests.description,
       help_requests.created_at,
@@ -43,12 +49,13 @@ export const getAllHelpRequests = async (
   `;
 
   const queryVals: any[] = [];
+
   if (help_type) {
-    queryString += ` WHERE help_types.type_name = $1`;
+    queryString += ` WHERE help_types.name = $1`;
     queryVals.push(help_type);
   }
 
-  queryString += ` ORDER BY ${sortBy} ${orderBy}`;
+  queryString += ` ORDER BY ${sort_by} ${order}`;
 
   try {
     const { rows } = await db.query(queryString, queryVals);

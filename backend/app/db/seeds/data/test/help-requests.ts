@@ -3,9 +3,17 @@ export interface HelpRequest {
   author_id: number;
   help_type_id: number;
   description: string;
-  created_at: number | string;
-  req_date: number | string;
+  created_at: string;
+  req_date: string;
   status: string;
+  author_first_name?: string;
+  author_last_name?: string;
+  author_username?: string;
+  author_address?: string;
+  author_postcode?: string;
+  author_longitude?: number;
+  author_latitude?: number;
+  help_type?: string;
 }
 
 export interface HelpRequestBody {

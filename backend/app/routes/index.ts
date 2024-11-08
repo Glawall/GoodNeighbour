@@ -88,5 +88,9 @@ router.delete(
 
 // // * Types
 router.get("/api/help-types", helpTypesController.getAllHelpTypes);
+router.get(
+  "/api/help-types/:help_type_id",
+  helpTypesController.getByHelpTypeId
+);
 
 export default router;

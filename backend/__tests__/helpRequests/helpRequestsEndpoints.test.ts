@@ -3,6 +3,7 @@ import app from "../../app/app";
 import db from "../../app/connection";
 import { testData } from "../../app/db/seeds/data/test";
 import seed from "../../app/db/seeds/seed";
+import "jest-sorted";
 import {
   HelpRequest,
   HelpRequestBody,
@@ -21,7 +22,7 @@ afterAll(async () => {
   await db.end();
 });
 
-describe.only("getAllHelpRequests", () => {
+describe("getAllHelpRequests", () => {
   test("200 - GET: responds with an array of help request objects with the appropriate properties", async () => {
     const {
       body: { helpRequests },
@@ -46,6 +47,58 @@ describe.only("getAllHelpRequests", () => {
       expect(helpRequest).toHaveProperty("author_latitude");
       expect(helpRequest).toHaveProperty("help_type");
     });
+  });
+  test("200 - GET: responds with help requests sorted by 'created_at' by default", async () => {
+    const {
+      body: { helpRequests },
+    } = await request(app).get("/api/help-requests").expect(200);
+    expect(helpRequests).toBeSortedBy("created_at", { descending: true });
+  });
+  test("200 - GET: responds with help requests sorted by 'created_at' ascending", async () => {
+    const {
+      body: { helpRequests },
+    } = await request(app).get("/api/help-requests?order=asc").expect(200);
+    expect(helpRequests).toBeSortedBy("created_at", { descending: false });
+  });
+  test("200 - GET: responds with help requests sorted by 'author_username' in descending order", async () => {
+    const {
+      body: { helpRequests },
+    } = await request(app)
+      .get("/api/help-requests?sort_by=author_username&order=desc")
+      .expect(200);
+    expect(helpRequests).toBeSortedBy("author_username", { descending: true });
+  });
+  test("200 - GET: responds with help requests sorted by 'author_username' in descending order", async () => {
+    const {
+      body: { helpRequests },
+    } = await request(app)
+      .get(
+        "/api/help-requests?sort_by=author_username&order=asc&help_type=Shopping"
+      )
+      .expect(200);
+    expect(helpRequests).toBeSortedBy("author_username", { descending: false });
+    helpRequests.forEach((helpRequest: HelpRequest) => {
+      expect(helpRequest.help_type).toBe("Shopping");
+    });
+  });
+  test("400 - GET: responds with error for invalid input parameters", async () => {
+    const invalidQueries = [
+      "/api/help-requests?sort_by=12",
+      "/api/help-requests?order=12",
+    ];
+
+    for (const query of invalidQueries) {
+      const {
+        body: { error },
+      } = await request(app).get(query).expect(400);
+      expect(error).toMatchObject({ message: "Invalid input provided" });
+    }
+  });
+  test("200 - GET: responds with an empty array for invalid help_type", async () => {
+    const {
+      body: { helpRequests },
+    } = await request(app).get("/api/help-requests?help_type=12").expect(200);
+    expect(helpRequests).toEqual([]);
   });
 });
 

@@ -28,3 +28,33 @@ describe("getAllHelpRequests", () => {
     });
   });
 });
+
+describe("getByHelpRequestId", () => {
+  test("200 - GET: responds with an a help request object, based on help_request_id", async () => {
+    const {
+      body: { helpType },
+    } = await request(app).get("/api/help-types/1").expect(200);
+    expect(helpType).toMatchObject({
+      id: 1,
+      name: "Shopping",
+      description:
+        "Turpis toties tres. Toties vacuus inventore laborum. Pauci ea aestas.",
+    });
+  });
+  test("404 - GET: responds with an error if help request is not found", async () => {
+    const {
+      body: { error },
+    } = await request(app).get("/api/help-types/999").expect(404);
+    expect(error).toMatchObject({
+      message: "Help type was not found",
+    });
+  });
+  test("400 - GET: responds with an error if help_request_id is invalid", async () => {
+    const {
+      body: { error },
+    } = await request(app).get("/api/help-types/invalid_id").expect(400);
+    expect(error).toMatchObject({
+      message: "Invalid help type id provided",
+    });
+  });
+});

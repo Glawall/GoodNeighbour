@@ -19,6 +19,10 @@ export const errors = {
     statusCode: 400,
     message: "Invalid comment id provided",
   },
+  HELP_TYPE_VALIDATION_ERROR: {
+    statusCode: 400,
+    message: "Invalid help type id provided",
+  },
   VALIDATION_ERROR: {
     statusCode: 400,
     message: "Invalid input provided",
@@ -46,6 +50,10 @@ export const errors = {
   COMMENT_NOT_FOUND: {
     statusCode: 404,
     message: "Comment was not found",
+  },
+  HELP_TYPE_NOT_FOUND: {
+    statusCode: 404,
+    message: "Help type was not found",
   },
   COMMENT_UPDATE_AUTHORISATION_ERROR: {
     statusCode: 401,

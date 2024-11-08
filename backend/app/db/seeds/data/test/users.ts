@@ -170,7 +170,7 @@ export const usersData: User[] = [
     longitude: -0.1918,
   },
   {
-    username: "maxbmaapc",
+    username: "Maxbmaapc",
     email: "David.Thomas@hotmail.com",
     avatar_url:
       "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1024.jpg",
