@@ -3,9 +3,10 @@ import { User } from "../../db/seeds/data/test/users";
 
 export const updateUser = async (
   id: number,
-  updateBody: any
+  updateBody: Partial<User>
 ): Promise<User> => {
   const {
+    avatar_url,
     email,
     about,
     address,
@@ -18,6 +19,9 @@ export const updateUser = async (
   const setClause = [];
   const values = [];
 
+  if (avatar_url) {
+    setClause.push(`email = $${values.push(avatar_url)}`);
+  }
   if (email) {
     setClause.push(`email = $${values.push(email)}`);
   }
