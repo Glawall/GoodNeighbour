@@ -27,7 +27,7 @@ const MapComponent = ({ points }) => {
       : defaultCenter;
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyDENY0CTI7nRdkSjRXBHcoH--lu99WJ8uk">
+    <LoadScript googleMapsApiKey={process.env.GOOGLE_MAPS_API_KEY}>
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "400px" }}
         center={center}
