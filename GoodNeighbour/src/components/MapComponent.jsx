@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import {
   GoogleMap,
@@ -26,8 +26,10 @@ const MapComponent = ({ points }) => {
       ? { lat: userPoints.latitude, lng: userPoints.longitude }
       : defaultCenter;
 
+  const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
   return (
-    <LoadScript googleMapsApiKey={process.env.GOOGLE_MAPS_API_KEY}>
+    <LoadScript googleMapsApiKey={googleMapsApiKey}>
       <GoogleMap
         mapContainerStyle={{ width: "100%", height: "400px" }}
         center={center}
