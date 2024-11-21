@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthProvider";
 import { useSendRequest } from "../hooks/useSendRequest";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CreateNewUser from "./CreateNewUser";
 
 const Login = () => {
   const { isLoggedIn, user, login, logout } = useAuth();
@@ -56,19 +57,21 @@ const Login = () => {
       ) : (
         <div>
           <h2>Select a User to Log In</h2>
-          <form onSubmit={handleSubmit}>
-            <select
-              onChange={handleChange}
-              value={currentSelectedUser}
-              id="user-select"
-            >
-              <option value="">Please choose a user</option>
-              {users.map(({ username }) => (
-                <option key={username} value={username}>
-                  {username}
-                </option>
-              ))}
-            </select>
+          <form className="user-select-form" onSubmit={handleSubmit}>
+            <label htmlFor="user-select">
+              <select
+                onChange={handleChange}
+                value={currentSelectedUser}
+                id="user-select"
+              >
+                <option value="">Please choose a user</option>
+                {users.map(({ username }) => (
+                  <option key={username} value={username}>
+                    {username}
+                  </option>
+                ))}
+              </select>
+            </label>
             <br />
             <div className="login-buttons">
               <button type="submit" disabled={!currentSelectedUser}>
@@ -76,6 +79,7 @@ const Login = () => {
               </button>
             </div>
           </form>
+          <CreateNewUser postcodes={postcodes} setUsers={setUsers} />
         </div>
       )}
     </div>

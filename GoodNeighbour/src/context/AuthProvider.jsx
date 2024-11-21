@@ -1,7 +1,6 @@
 import React, { createContext, useState, useCallback, useContext } from "react";
 import Cookies from "js-cookie";
 
-// Define the AuthContext with default values
 const AuthContext = createContext({
   isLoggedIn: false,
   user: null,
@@ -9,15 +8,13 @@ const AuthContext = createContext({
   logout: () => {},
 });
 
-// AuthProvider component using cookies
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const storedUser = Cookies.get("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  const isLoggedIn = !!user; // Boolean check to ensure that isLoggedIn is updated based on the user state
-
+  const isLoggedIn = !!user;
   const login = useCallback((userData) => {
     Cookies.set("user", JSON.stringify(userData), { expires: 7, path: "/" });
     setUser(userData);
@@ -35,7 +32,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the AuthContext
 export const useAuth = () => {
   return useContext(AuthContext);
 };

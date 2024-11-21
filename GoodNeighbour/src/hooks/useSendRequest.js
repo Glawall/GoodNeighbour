@@ -34,9 +34,8 @@ export const useSendRequest = () => {
           const errorMessage = `HTTP Error: ${response.status} ${response.statusText}`;
           const error = new Error(errorMessage);
           error.status = response.status;
-          console.error(error);
-          setError(error); // Set the error state
-          throw error; // Re-throw the error for further handling
+          setError(error);
+          throw error;
         }
 
         const contentType = response.headers.get("content-type");
@@ -48,8 +47,8 @@ export const useSendRequest = () => {
           return {};
         }
       } catch (err) {
-        setError(err); // Set the error state
-        throw err; // Re-throw the error for further handling
+        setError(err);
+        throw err;
       } finally {
         setIsLoading(false);
       }

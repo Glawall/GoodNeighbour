@@ -9,19 +9,20 @@ import Profile from "./pages/Profile.jsx";
 import { useAuth } from "./context/AuthProvider.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
   const { isLoggedIn, user, login, logout } = useAuth();
 
   return (
-    <>
+    <div className="app-container">
       <Header></Header>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/helpRequests" element={<HelpRequests />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </>
+      <main className="main-app">
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/helpRequests" element={<HelpRequests />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

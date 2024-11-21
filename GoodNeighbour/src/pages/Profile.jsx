@@ -2,24 +2,29 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import { useSendRequest } from "../hooks/useSendRequest";
+import "../styling/Profile.css";
 
 const Profile = () => {
-  const { isLoggedIn, user, logout } = useAuth();
+  const { isLoggedIn, user, logout, login } = useAuth();
   const navigate = useNavigate();
-  const { sendRequest } = useSendRequest();
+  const { sendRequest, isLoading } = useSendRequest();
 
-  const [profileEdits, setProfileEdits] = useState({
-    about: { value: user.about || "", editing: false },
-    address: { value: user.address || "", editing: false },
-    email: { value: user.email || "", editing: false },
-    help_radius: { value: user.help_radius || 0, editing: false },
-    phone_number: { value: user.phone_number || "", editing: false },
-    postcode: { value: user.postcode || "", editing: false },
-    additional_contacts: {
-      value: user.additional_contacts || "",
-      editing: false,
-    },
-  });
+  const [profileEdits, setProfileEdits] = useState(
+    user
+      ? {
+          about: { value: user.about || "", editing: false },
+          address: { value: user.address || "", editing: false },
+          email: { value: user.email || "", editing: false },
+          help_radius: { value: user.help_radius || 0, editing: false },
+          phone_number: { value: user.phone_number || "", editing: false },
+          postcode: { value: user.postcode || "", editing: false },
+          additional_contacts: {
+            value: user.additional_contacts || "",
+            editing: false,
+          },
+        }
+      : {}
+  );
 
   const handleEditClick = (field) => {
     setProfileEdits((profile) => ({
@@ -53,7 +58,12 @@ const Profile = () => {
         ...profile,
         [field]: { ...profile[field], editing: false },
       }));
-      console.log(`${field} updated successfully`);
+      const updatedUser = {
+        ...user,
+        [field]: profileEdits[field].value,
+      };
+      console.log(updatedUser);
+      login(updatedUser);
     } catch (err) {
       console.error(`Error updating ${field}:`, err);
     }
@@ -69,8 +79,19 @@ const Profile = () => {
             value={profileEdits[fieldName].value}
             onChange={(e) => handleChange(e, fieldName)}
           />
-          <button onClick={() => handleSaveClick(fieldName)}>Save</button>
-          <button onClick={() => handleCancelClick(fieldName)}>Cancel</button>
+          {profileEdits[fieldName].isLoading ? (
+            <span>Saving...</span>
+          ) : (
+            <>
+              <button onClick={() => handleSaveClick(fieldName)}>Save</button>
+              <button
+                className="cancel"
+                onClick={() => handleCancelClick(fieldName)}
+              >
+                Cancel
+              </button>
+            </>
+          )}
         </>
       ) : (
         <>
@@ -81,10 +102,10 @@ const Profile = () => {
     </div>
   );
 
-  return isLoggedIn ? (
+  return user ? (
     <div className="user-container">
       <h2>Welcome {user.username}!</h2>
-      <img src={user.avatar_url} alt="user avatar" />
+      <img src={user.avatar_url} className="user-avatar" alt="user avatar" />
       {editableField("about", "About")}
       {editableField("address", "Address")}
       {editableField("email", "Email")}
@@ -92,7 +113,9 @@ const Profile = () => {
       {editableField("phone_number", "Phone Number")}
       {editableField("postcode", "Postcode")}
       {editableField("additional_contacts", "Additional Contact Information")}
-      <button onClick={logout}>Logout</button>
+      <button className="logout" onClick={logout}>
+        Logout
+      </button>
     </div>
   ) : (
     <section>

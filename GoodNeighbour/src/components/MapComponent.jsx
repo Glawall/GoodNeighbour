@@ -31,7 +31,12 @@ const MapComponent = ({ points }) => {
   return (
     <LoadScript googleMapsApiKey={googleMapsApiKey}>
       <GoogleMap
-        mapContainerStyle={{ width: "100%", height: "400px" }}
+        mapContainerStyle={{
+          width: "100%",
+          height: "400px",
+          borderRadius: "25px",
+          overflow: "hidden",
+        }}
         center={center}
         zoom={13}
         onLoad={(mapInstance) => setMap(mapInstance)}
@@ -40,16 +45,22 @@ const MapComponent = ({ points }) => {
           <Marker
             key={index}
             position={{ lat: point.latitude, lng: point.longitude }}
-            onClick={() => setSelectedPoint(point)}
+            onClick={() => {
+              setSelectedPoint(point);
+            }}
           >
             {selectedPoint &&
               selectedPoint.latitude === point.latitude &&
               selectedPoint.longitude === point.longitude && (
                 <InfoWindow onCloseClick={() => setSelectedPoint(null)}>
                   <div>
-                    <strong>{point.name}</strong>
+                    <strong>
+                      Needed by: {point.first_name} {point.last_name}
+                    </strong>
                     <br />
-                    {point.description}
+                    <strong>{point.title}</strong>
+                    <br />
+                    <strong>Where: {point.postcode}</strong>
                     <br />
                     <a
                       href={`https://www.google.com/maps?q=${point.latitude},${point.longitude}`}
