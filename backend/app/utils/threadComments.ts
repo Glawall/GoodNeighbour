@@ -3,22 +3,22 @@ import { Comment } from "../db/seeds/data/test/comments";
 export const threadComments = (
   comments: Comment[]
 ): (Comment & { replies: Comment[] })[] => {
-  const map: { [key: number]: Comment & { replies: Comment[] } } = {};
-  const roots: (Comment & { replies: Comment[] })[] = [];
+  const top: { [key: number]: Comment & { replies: Comment[] } } = {};
+  const belows: (Comment & { replies: Comment[] })[] = [];
 
   comments.forEach((comment) => {
     if (comment.id !== undefined) {
-      map[comment.id] = { ...comment, replies: [] };
+      top[comment.id] = { ...comment, replies: [] };
     }
   });
 
   comments.forEach((comment) => {
     const { id, parent_id } = comment;
     if (id !== undefined) {
-      if (parent_id && map[parent_id]) {
-        map[parent_id].replies.push(map[id]);
-      } else roots.push(map[id]);
+      if (parent_id && top[parent_id]) {
+        top[parent_id].replies.push(top[id]);
+      } else belows.push(top[id]);
     }
   });
-  return roots;
+  return belows;
 };

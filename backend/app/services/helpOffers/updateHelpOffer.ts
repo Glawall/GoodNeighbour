@@ -10,13 +10,13 @@ export const updateHelpOffer = async (
   helpOfferBody: any
 ) => {
   await userExists(helperId);
-  const { request } = await helpRequestExists(helpRequestId);
+  const request = await helpRequestExists(helpRequestId);
+
   const helpOffer = await helpOfferExists(helpRequestId, helperId);
   if (!helpOffer) {
     throw new AppError(errors.HELP_OFFER_NOT_FOUND);
   }
-  const requester = request[0];
-  const requesterUserId = requester.author_id;
+  const requesterUserId = request.author_id;
 
   if (!(requesterUserId === authUserId || helperId === authUserId)) {
     throw new AppError(errors.AUTHORISATION_ERROR);

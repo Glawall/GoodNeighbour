@@ -15,12 +15,11 @@ export const checkExists = async (
   if (
     !result ||
     (Array.isArray(result) && result.length === 0) ||
-    (Array.isArray(result.helpRequestOffersRows) &&
-      result.helpRequestOffersRows.length === 0)
+    (Array.isArray(result.request) && result.request.length === 0)
   ) {
     throw new AppError(errorObj);
   }
-  return result;
+  return result.request ? result.request[0] : result;
 };
 
 export const helpRequestExists = async (help_request_id: number) => {

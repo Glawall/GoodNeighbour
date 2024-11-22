@@ -13,7 +13,6 @@ export const updateHelpOffer = async (
 
     await checkValidInput(helpRequestId, "HELP_REQUEST");
     await checkValidInput(helperId, "USER");
-
     const updatedHelpOffer = await helpOffersService.updateHelpOffer(
       helpRequestId,
       helperId,
