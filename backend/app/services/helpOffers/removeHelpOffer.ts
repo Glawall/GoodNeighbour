@@ -11,9 +11,8 @@ export const removeHelpOffer = async (
   await userExists(helperId);
   await helpOfferExists(helpRequestId, helperId);
 
-  const { request } = await helpRequestExists(helpRequestId);
-  const requester = request[0];
-  const requesterUserId = requester.author_id;
+  const request = await helpRequestExists(helpRequestId);
+  const requesterUserId = request.author_id;
 
   if (!(requesterUserId === authUserId || helperId === authUserId)) {
     throw new AppError(errors.AUTHORISATION_ERROR);

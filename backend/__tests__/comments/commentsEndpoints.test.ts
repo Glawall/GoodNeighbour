@@ -44,6 +44,13 @@ describe("getCommentsByRequestId", () => {
       replies: [],
     });
   });
+  test("200 - GET: responds with an empty array of comments if not comments are attached to the helpRequest", async () => {
+    const {
+      body: { comments },
+    } = await request(app).get("/api/help-requests/11/comments").expect(200);
+    expect(Array.isArray(comments)).toBe(true);
+    expect(comments).toEqual([]);
+  });
   test("404 - GET: responds with an error if the help request does not exist", async () => {
     const {
       body: { error },

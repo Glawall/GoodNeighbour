@@ -9,7 +9,6 @@ console.log(ENV, "in connection");
 if (!process.env.PGDATABASE && !process.env.DATABASE_URL) {
   throw new Error("PGDATABASE or DATABASE_URL not set");
 }
-console.log(ENV, "in connection");
 
 const config: PoolConfig = {};
 

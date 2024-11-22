@@ -45,12 +45,5 @@
     "jest-extended": "^4.0.2",
     "jest-sorted": "^1.0.15"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "setupFilesAfterEnv": [
-      "jest-extended",
-      "jest-sorted"
-    ]
-  },
   "proxy": "http://localhost:8003"
 }

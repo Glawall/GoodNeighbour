@@ -9,9 +9,8 @@ export const updateHelpRequest = async (
   helpRequestId: number,
   helpRequestBody: HelpRequestBody
 ) => {
-  const { request } = await helpRequestExists(helpRequestId);
-  const requester = request[0];
-  const requesterUserId = requester.author_id;
+  const request = await helpRequestExists(helpRequestId);
+  const requesterUserId = request.author_id;
 
   if (requesterUserId !== authUserId) {
     throw new AppError(errors.HELP_REQUEST_UPDATE_AUTHORISATION_ERROR);
