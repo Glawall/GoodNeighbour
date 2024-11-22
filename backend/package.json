@@ -51,5 +51,6 @@
       "jest-extended",
       "jest-sorted"
     ]
-  }
+  },
+  "proxy": "http://localhost:8003"
 }

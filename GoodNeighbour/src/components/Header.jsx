@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 import { useAuth } from "../context/AuthProvider";
+import "../styling/Header.css";
 
 function Header() {
   const { user, isLoggedIn } = useAuth();
@@ -9,16 +9,23 @@ function Header() {
   }
 
   return (
-    <header>
+    <header className="header-container">
       <h1>Good Neighbour</h1>
       <div className="navigation">
         <Link to="/profile"> My Profile</Link>
         <Link to="/helpRequests">HelpRequests</Link>
         <Link to="/helpOffers">My Help Offers</Link>
       </div>
-      <a href="/profile">
-        <img className="user-avatar" src={user.avatar_url} alt="user avatar" />
-      </a>{" "}
+      <div className="user-profile-container">
+        <a href="/profile">
+          <img
+            className="user-avatar"
+            src={user.avatar_url}
+            alt="user avatar"
+          />
+          <p className="username-header">{user.username}</p>
+        </a>{" "}
+      </div>
     </header>
   );
 }

@@ -1,35 +1,31 @@
 import { useAuth } from "../context/AuthProvider";
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import HelpRequestCard from "../components/HelpRequestCard";
 import MapComponent from "../components/MapComponent";
 import { useSendRequest } from "../hooks/useSendRequest";
 import { checkDistance } from "../utils/checkDistance";
+import { fetchAndSetHelpTypes } from "../utils/fetchAndSetHelpTypes";
+import "../styling/HelpRequests.css";
 
 const HelpRequests = () => {
-  const { isLoggedIn, user } = useAuth();
+  const { user } = useAuth();
   const [helpRequests, setHelpRequests] = useState([]);
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-
+  const [helpTypes, setHelpTypes] = useState([]);
   const [sortByOptions, setSortByOptions] = useState({
     sort_by: "created_at",
     order: "desc",
     help_type: "",
   });
-  const [helpTypes, setHelpTypes] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const { loading, error, sendRequest } = useSendRequest();
 
-  const fetchHelpTypes = async () => {
-    try {
-      const { helpTypes } = await sendRequest(`help-types`, "GET");
-      setHelpTypes(helpTypes);
-    } catch (err) {
-      console.error("Error fetching helpTypes:", err);
-    }
-  };
+  const fetchHelpTypes = useCallback(() => {
+    fetchAndSetHelpTypes(sendRequest, setHelpTypes);
+  }, [sendRequest, setHelpTypes]);
 
-  const fetchHelpRequests = async () => {
+  const fetchHelpRequests = useCallback(async () => {
+    if (!user) return;
     const queryParams = new URLSearchParams(sortByOptions).toString();
     try {
       const { helpRequests } = await sendRequest(
@@ -47,39 +43,33 @@ const HelpRequests = () => {
         );
         return distance <= 5;
       });
-      console.log("Filtered Help Requests:", filteredRequests);
       setHelpRequests(filteredRequests);
     } catch (err) {
       console.error("Error fetching helpRequests:", err);
     }
-  };
+  }, [sortByOptions, user, sendRequest]);
 
   useEffect(() => {
-    console.log("User from Auth Context in HelpRequests:", user);
-    console.log("Is Logged In:", isLoggedIn);
-
-    if (!isLoggedIn) {
-      navigate("/help-requests");
-    } else {
-      fetchHelpRequests();
-      fetchHelpTypes();
-    }
-  }, [isLoggedIn, sortByOptions, user]); // Trigger when isLoggedIn, sortByOptions, or user changes
+    fetchHelpTypes();
+    fetchHelpRequests();
+  }, []);
 
   useEffect(() => {
     setSearchParams(sortByOptions);
-  }, [sortByOptions, setSearchParams]); // Sync search params with sortByOptions
+  }, [sortByOptions, setSearchParams]);
 
   const handleOrderChange = (event) => {
-    setSortByOptions((existing) => {
-      return { ...existing, order: event.target.value };
-    });
+    setSortByOptions((existing) => ({
+      ...existing,
+      order: event.target.value,
+    }));
   };
 
   const handleSortByChange = (event) => {
-    setSortByOptions((existing) => {
-      return { ...existing, sort_by: event.target.value };
-    });
+    setSortByOptions((existing) => ({
+      ...existing,
+      sort_by: event.target.value,
+    }));
   };
 
   const handleHelpTypeClick = (helpType) => {
@@ -90,9 +80,14 @@ const HelpRequests = () => {
   };
 
   const points = helpRequests.map((request) => ({
-    name: request.author_username || "Helpee",
+    first_name: request.author_first_name || "Helpee",
+    last_name: request.author_last_name,
     latitude: request.author_latitude,
     longitude: request.author_longitude,
+    id: request.id,
+    title: request.title,
+    postcode: request.author_postcode,
+    type: request.help_type,
   }));
 
   if (loading) return <p>Loading help-requests...</p>;
@@ -100,15 +95,17 @@ const HelpRequests = () => {
   return (
     <div className="help-requests-container">
       <div className="sorting-options">
-        <select value={sortByOptions.order} onChange={handleOrderChange}>
-          <option value="desc">Newest</option>
-          <option value="asc">Oldest</option>
-        </select>
-        <select value={sortByOptions.sort_by} onChange={handleSortByChange}>
-          <option value="created_at">Date</option>
-          <option value="help_type">Title</option>
-          <option value="author_username">Author</option>
-        </select>
+        <div className="select-container">
+          <select value={sortByOptions.order} onChange={handleOrderChange}>
+            <option value="desc">Newest</option>
+            <option value="asc">Oldest</option>
+          </select>
+          <select value={sortByOptions.sort_by} onChange={handleSortByChange}>
+            <option value="created_at">Date</option>
+            <option value="help_type">Title</option>
+            <option value="author_username">Author</option>
+          </select>
+        </div>
         <div className="help-type-links">
           <span
             className={`help-type-link ${
@@ -131,16 +128,21 @@ const HelpRequests = () => {
           ))}
         </div>
       </div>
-      <ul>
-        {helpRequests.length > 0 ? (
+
+      <div className="help-requests-list">
+        {helpRequests.length > 0 &&
+        helpRequests.author_username !== user.username ? (
           helpRequests.map((helpRequest) => (
             <HelpRequestCard key={helpRequest.id} helpRequest={helpRequest} />
           ))
         ) : (
           <p>No help requests available.</p>
         )}
-      </ul>
-      <MapComponent points={points} />
+      </div>
+
+      <div className="map-container">
+        <MapComponent points={points} />
+      </div>
     </div>
   );
 };
