@@ -5,7 +5,6 @@ export const threadComments = (
 ): (Comment & { replies: Comment[] })[] => {
   const top: { [key: number]: Comment & { replies: Comment[] } } = {};
   const belows: (Comment & { replies: Comment[] })[] = [];
-
   comments.forEach((comment) => {
     if (comment.id !== undefined) {
       top[comment.id] = { ...comment, replies: [] };
