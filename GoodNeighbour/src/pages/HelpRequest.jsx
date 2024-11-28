@@ -2,8 +2,7 @@ import { useAuth } from "../context/AuthProvider";
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useSendRequest } from "../hooks/useSendRequest";
-import HelpRequestCard from "../components/HelpRequestCard";
-
+import CommentAndReplies from "../components/CommentsAndReplies";
 const HelpRequest = () => {
   const { user } = useAuth();
   const [helpRequest, setHelpRequest] = useState({});
@@ -26,7 +25,6 @@ const HelpRequest = () => {
   };
 
   const fetchComments = async () => {
-    console.log(help_request_id, "in fetch comments");
     try {
       const { comments } = await sendRequest(
         `help-requests/${help_request_id}/comments`,
@@ -50,14 +48,17 @@ const HelpRequest = () => {
     );
   return (
     <div>
-      <HelpRequestCard helpRequest={helpRequest} />
       <p>{helpRequest.id}</p>
       <p>{helpRequest.title}</p>
       <p>{helpRequest.description}</p>
-      <p>I've rendered</p>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <p key={comment.id}>Comment ID: {comment.id}</p>
+          <CommentAndReplies
+            key={comment.id}
+            comment={comment}
+            setComments={setComments}
+            helpRequestId={helpRequest.id}
+          />
         ))
       ) : (
         <p>No comments available</p>
