@@ -5,7 +5,14 @@ import router from "./routes";
 
 const app: Application = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "X-User-ID"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 

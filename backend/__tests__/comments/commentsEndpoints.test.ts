@@ -24,6 +24,7 @@ describe("getCommentsByRequestId", () => {
       body: { comments },
     } = await request(app).get("/api/help-requests/10/comments").expect(200);
     expect(Array.isArray(comments)).toBe(true);
+    console.log(comments);
     comments.forEach((comment: Comment & { replies: Comment[] }) => {
       expect(comment).toHaveProperty("id");
       expect(comment).toHaveProperty("author_address");
@@ -35,6 +36,7 @@ describe("getCommentsByRequestId", () => {
       expect(comment).toHaveProperty("author_phone_number");
       expect(comment).toHaveProperty("parent_id");
       expect(comment).toHaveProperty("created_at");
+      expect(comment).toHaveProperty("help_request_id");
       expect(comment).toHaveProperty("description");
       expect(comment).toHaveProperty("replies");
       expect(Array.isArray(comment.replies)).toBe(true);
