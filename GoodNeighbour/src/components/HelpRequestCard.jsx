@@ -8,7 +8,6 @@ function HelpRequestCard({ helpRequest }) {
   function handleClick() {
     navigate(`/help-requests/${helpRequest.id}`);
   }
-
   return (
     <ul key={helpRequest.title} className="help-request-list">
       <div className="help-request-card">
@@ -22,7 +21,7 @@ function HelpRequestCard({ helpRequest }) {
           {formattedTime(helpRequest.created_at)}{" "}
         </p>
         <p>{helpRequest.description}</p>
-        <Link to={`/help-requests/${helpRequest.id}`}>
+        <Link to={`/helpRequests/${helpRequest.id}`}>
           Get more details here{" "}
         </Link>
       </div>

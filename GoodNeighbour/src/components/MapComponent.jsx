@@ -33,9 +33,10 @@ const MapComponent = ({ points }) => {
       <GoogleMap
         mapContainerStyle={{
           width: "100%",
-          height: "400px",
+          height: "100%",
           borderRadius: "25px",
           overflow: "hidden",
+          objectFit: "contain",
         }}
         center={center}
         zoom={13}
