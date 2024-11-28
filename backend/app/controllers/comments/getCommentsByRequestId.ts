@@ -9,7 +9,6 @@ export const getCommentsByRequestId = async (
 ) => {
   try {
     const helpRequestId = Number(req.params.help_request_id);
-    console.log(helpRequestId);
     await checkValidInput(helpRequestId, "HELP_REQUEST");
     const comments = await commentsService.getCommentsByRequestId(
       helpRequestId

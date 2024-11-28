@@ -24,7 +24,7 @@ const Login = () => {
       }
     };
     fetchUsers();
-  }, [sendRequest]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

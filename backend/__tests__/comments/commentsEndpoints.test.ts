@@ -26,8 +26,13 @@ describe("getCommentsByRequestId", () => {
     expect(Array.isArray(comments)).toBe(true);
     comments.forEach((comment: Comment & { replies: Comment[] }) => {
       expect(comment).toHaveProperty("id");
-      expect(comment).toHaveProperty("author_id");
-      expect(comment).toHaveProperty("help_request_id");
+      expect(comment).toHaveProperty("author_address");
+      expect(comment).toHaveProperty("author_postcode");
+      expect(comment).toHaveProperty("author_first_name");
+      expect(comment).toHaveProperty("author_last_name");
+      expect(comment).toHaveProperty("author_latitude");
+      expect(comment).toHaveProperty("author_longitude");
+      expect(comment).toHaveProperty("author_phone_number");
       expect(comment).toHaveProperty("parent_id");
       expect(comment).toHaveProperty("created_at");
       expect(comment).toHaveProperty("description");
@@ -36,8 +41,13 @@ describe("getCommentsByRequestId", () => {
     });
     expect(comments[0].replies[0]).toMatchObject({
       id: 10,
-      author_id: 4,
-      help_request_id: 10,
+      author_first_name: "Emily",
+      author_last_name: "Thompson",
+      author_postcode: "W2 4QJ",
+      author_address: "9 Queensway, London",
+      author_longitude: -0.1882,
+      author_latitude: 51.5108,
+      author_phone_number: "07789 456123",
       parent_id: 8,
       created_at: expect.any(String),
       description: "This is a reply to the comment with parent_id 8.",

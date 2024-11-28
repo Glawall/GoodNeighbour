@@ -20,13 +20,13 @@ const HelpRequests = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { loading, error, sendRequest } = useSendRequest();
 
-  const fetchHelpTypes = useCallback(() => {
+  const fetchHelpTypes = () => {
     fetchAndSetHelpTypes(sendRequest, setHelpTypes);
-  }, [sendRequest, setHelpTypes]);
+  };
 
-  const fetchHelpRequests = useCallback(async () => {
-    if (!user) return;
+  const fetchHelpRequests = async () => {
     const queryParams = new URLSearchParams(sortByOptions).toString();
+    fetchHelpTypes();
     try {
       const { helpRequests } = await sendRequest(
         `help-requests`,
@@ -47,16 +47,12 @@ const HelpRequests = () => {
     } catch (err) {
       console.error("Error fetching helpRequests:", err);
     }
-  }, [sortByOptions, user, sendRequest]);
+  };
 
   useEffect(() => {
-    fetchHelpTypes();
     fetchHelpRequests();
-  }, []);
-
-  useEffect(() => {
     setSearchParams(sortByOptions);
-  }, [sortByOptions, setSearchParams]);
+  }, [sortByOptions, setSearchParams, setHelpRequests]);
 
   const handleOrderChange = (event) => {
     setSortByOptions((existing) => ({
@@ -128,7 +124,9 @@ const HelpRequests = () => {
           ))}
         </div>
       </div>
-
+      <div className="map-container">
+        <MapComponent points={points} />
+      </div>
       <div className="help-requests-list">
         {helpRequests.length > 0 &&
         helpRequests.author_username !== user.username ? (
@@ -138,10 +136,6 @@ const HelpRequests = () => {
         ) : (
           <p>No help requests available.</p>
         )}
-      </div>
-
-      <div className="map-container">
-        <MapComponent points={points} />
       </div>
     </div>
   );
