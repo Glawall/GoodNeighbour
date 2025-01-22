@@ -1,5 +1,7 @@
 import * as helpOffersRepo from "../../repositories/helpOffers";
-import { helpOfferExists, helpRequestExists, userExists } from "../../utils";
+import { helpRequestExists, userExists } from "../../utils";
+import { AppError } from "../../errors/AppError";
+import { errors } from "../../errors/errors";
 
 export const getByHelpRequestIdAndHelperId = async (
   helpRequestId: number,
@@ -7,8 +9,14 @@ export const getByHelpRequestIdAndHelperId = async (
 ) => {
   await helpRequestExists(helpRequestId);
   await userExists(helperId);
-  await helpOfferExists(helpRequestId, helperId);
-  const helpOffersByRequestId =
-    await helpOffersRepo.getByHelpRequestIdAndHelperId(helpRequestId, helperId);
-  return helpOffersByRequestId;
+  const helpOffer = await helpOffersRepo.getByHelpRequestIdAndHelperId(
+    helpRequestId,
+    helperId
+  );
+
+  if (!helpOffer) {
+    throw new AppError(errors.HELP_OFFER_NOT_FOUND);
+  }
+
+  return helpOffer;
 };

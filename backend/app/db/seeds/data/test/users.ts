@@ -13,6 +13,7 @@ export interface User {
   help_radius: Number;
   latitude?: Number;
   longitude?: Number;
+  password?: string;
 }
 
 export const usersData: User[] = [
@@ -32,6 +33,7 @@ export const usersData: User[] = [
     help_radius: 1200,
     latitude: 51.5072,
     longitude: -0.1806,
+    password: "password123",
   },
   {
     username: "MadeleineMcDermott",
@@ -49,6 +51,7 @@ export const usersData: User[] = [
     help_radius: 800,
     latitude: 51.5458,
     longitude: -0.1879,
+    password: "password123",
   },
   {
     username: "AlfredJohnson",
@@ -66,6 +69,7 @@ export const usersData: User[] = [
     help_radius: 1500,
     latitude: 51.5117,
     longitude: -0.2026,
+    password: "password123",
   },
   {
     username: "EmilyThompson",
@@ -83,6 +87,7 @@ export const usersData: User[] = [
     help_radius: 1000,
     latitude: 51.5108,
     longitude: -0.1882,
+    password: "password123",
   },
   {
     username: "JamesWilson",
@@ -100,6 +105,7 @@ export const usersData: User[] = [
     help_radius: 1200,
     latitude: 51.5096,
     longitude: -0.1951,
+    password: "password123",
   },
   {
     username: "SarahJones",
@@ -117,6 +123,7 @@ export const usersData: User[] = [
     help_radius: 900,
     latitude: 51.5108,
     longitude: -0.1871,
+    password: "password123",
   },
   {
     username: "RobertBrown",
@@ -134,6 +141,7 @@ export const usersData: User[] = [
     help_radius: 1100,
     latitude: 51.5078,
     longitude: -0.1813,
+    password: "password123",
   },
   {
     username: "MichaelTaylor",
@@ -151,6 +159,7 @@ export const usersData: User[] = [
     help_radius: 1300,
     latitude: 51.5139,
     longitude: -0.1904,
+    password: "password123",
   },
   {
     username: "DavidThomas",
@@ -168,6 +177,7 @@ export const usersData: User[] = [
     help_radius: 900,
     latitude: 51.5148,
     longitude: -0.1918,
+    password: "password123",
   },
   {
     username: "Maxbmaapc",
@@ -185,5 +195,6 @@ export const usersData: User[] = [
     help_radius: 900,
     latitude: 51.5148,
     longitude: -0.1918,
+    password: "password123",
   },
 ];

@@ -1,11 +1,13 @@
 import * as helpRequestsRepo from "../../repositories/helpRequests";
 import { helpTypeExists } from "../../utils";
 import { getHelpTypeId } from "../../utils/preloadHelpTypes";
+import { AppError } from "../../errors/AppError";
+import { errors } from "../../errors/errors";
 
 export const getAllHelpRequests = async (
-  sort_by: string,
-  order: string,
-  help_type: string
+  sort_by: string = "created_at",
+  order: string = "desc",
+  help_type?: string
 ) => {
   if (help_type) {
     const helpTypeId = getHelpTypeId(help_type);
@@ -14,10 +16,21 @@ export const getAllHelpRequests = async (
     }
   }
 
-  const allHelpRequests = await helpRequestsRepo.getAllHelpRequests(
+  const validSortColumns = ["author_username", "help_type", "created_at"];
+  const validOrders = ["desc", "asc"];
+
+  if (!validSortColumns.includes(sort_by)) {
+    throw new AppError(errors.VALIDATION_ERROR);
+  }
+
+  if (!validOrders.includes(order)) {
+    throw new AppError(errors.VALIDATION_ERROR);
+  }
+
+  const helpRequests = await helpRequestsRepo.getAllHelpRequests(
     sort_by,
     order,
     help_type
   );
-  return allHelpRequests;
+  return helpRequests;
 };

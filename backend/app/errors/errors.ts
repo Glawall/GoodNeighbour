@@ -1,8 +1,21 @@
-export const errors = {
+import { ErrorObj } from "./AppError";
+
+const AUTH_ERRORS = {
   AUTHORISATION_ERROR: {
     statusCode: 401,
     message: "User is not authorised",
   },
+  INVALID_CREDENTIALS: {
+    statusCode: 401,
+    message: "User is not authorised", // keeping same message for compatibility
+  },
+  TOKEN_EXPIRED: {
+    statusCode: 401,
+    message: "User is not authorised", // keeping same message for compatibility
+  },
+};
+
+const VALIDATION_ERRORS = {
   HELP_REQUEST_VALIDATION_ERROR: {
     statusCode: 400,
     message: "Invalid help request id provided",
@@ -31,10 +44,9 @@ export const errors = {
     statusCode: 400,
     message: "You need to fill in the mandatory field",
   },
-  REPOSITORY_ERROR: {
-    statusCode: 500,
-    message: "Internal server error",
-  },
+};
+
+const NOT_FOUND_ERRORS = {
   USER_NOT_FOUND: {
     statusCode: 404,
     message: "User was not found",
@@ -55,6 +67,9 @@ export const errors = {
     statusCode: 404,
     message: "Help type was not found",
   },
+};
+
+const AUTHORIZATION_ERRORS = {
   COMMENT_UPDATE_AUTHORISATION_ERROR: {
     statusCode: 401,
     message: "You are not authorised to update this comment",
@@ -88,3 +103,20 @@ export const errors = {
     message: "You are not authorised to update this user",
   },
 };
+
+const SYSTEM_ERRORS = {
+  REPOSITORY_ERROR: {
+    statusCode: 500,
+    message: "Internal server error",
+  },
+};
+
+export const errors = {
+  ...AUTH_ERRORS,
+  ...VALIDATION_ERRORS,
+  ...NOT_FOUND_ERRORS,
+  ...AUTHORIZATION_ERRORS,
+  ...SYSTEM_ERRORS,
+};
+
+export type ErrorType = keyof typeof errors;

@@ -24,7 +24,6 @@ describe("getCommentsByRequestId", () => {
       body: { comments },
     } = await request(app).get("/api/help-requests/10/comments").expect(200);
     expect(Array.isArray(comments)).toBe(true);
-    console.log(comments);
     comments.forEach((comment: Comment & { replies: Comment[] }) => {
       expect(comment).toHaveProperty("id");
       expect(comment).toHaveProperty("author_address");

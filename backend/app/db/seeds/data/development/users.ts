@@ -1,3 +1,5 @@
+import * as bcrypt from "bcrypt";
+
 export interface User {
   username: String;
   email: String;
@@ -13,12 +15,14 @@ export interface User {
   help_radius: Number;
   latitude?: Number;
   longitude?: Number;
+  password?: string;
 }
 
 export const usersData: User[] = [
   {
     username: "Cuthbert85",
     email: "Cuthbert_Wilkinson47@gmail.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=Cuthbert85",
     age: 72,
     first_name: "Cuthbert",
@@ -35,6 +39,7 @@ export const usersData: User[] = [
   {
     username: "MadeleineMcDermott",
     email: "Madeleine.McDermott@yahoo.com",
+    password: process.env.USER_PASSWORD,
     avatar_url:
       "https://api.dicebear.com/6.x/adventurer/svg?seed=MadeleineMcDermott",
     age: 68,
@@ -52,6 +57,7 @@ export const usersData: User[] = [
   {
     username: "AlfredJohnson",
     email: "Alfred.Johnson@hotmail.com",
+    password: process.env.USER_PASSWORD,
     avatar_url:
       "https://api.dicebear.com/6.x/adventurer/svg?seed=AlfredJohnson",
     age: 75,
@@ -69,6 +75,7 @@ export const usersData: User[] = [
   {
     username: "EmilyThompson",
     email: "Emily.Thompson@gmail.com",
+    password: process.env.USER_PASSWORD,
     avatar_url:
       "https://api.dicebear.com/6.x/adventurer/svg?seed=EmilyThompson",
     age: 71,
@@ -86,6 +93,7 @@ export const usersData: User[] = [
   {
     username: "JamesWilson",
     email: "James.Wilson@yahoo.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=JamesWilson",
     age: 67,
     first_name: "James",
@@ -102,6 +110,7 @@ export const usersData: User[] = [
   {
     username: "SarahJones",
     email: "Sarah.Jones@hotmail.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=SarahJones",
     age: 70,
     first_name: "Sarah",
@@ -118,6 +127,7 @@ export const usersData: User[] = [
   {
     username: "RobertBrown",
     email: "Robert.Brown@gmail.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=RobertBrown",
     age: 73,
     first_name: "Robert",
@@ -134,6 +144,7 @@ export const usersData: User[] = [
   {
     username: "MichaelTaylor",
     email: "Michael.Taylor@yahoo.com",
+    password: process.env.USER_PASSWORD,
     avatar_url:
       "https://api.dicebear.com/6.x/adventurer/svg?seed=MichaelTaylor",
     age: 69,
@@ -151,6 +162,7 @@ export const usersData: User[] = [
   {
     username: "DavidThomas",
     email: "David.Thomas@hotmail.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=DavidThomas",
     age: 74,
     first_name: "David",
@@ -167,6 +179,7 @@ export const usersData: User[] = [
   {
     username: "Asinbrick",
     email: "David.Thomas@hotmail.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=Asinbrick",
     age: 32,
     first_name: "Greg",
@@ -183,6 +196,7 @@ export const usersData: User[] = [
   {
     username: "OliverSmith",
     email: "Oliver.Smith@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=OliverSmith",
     age: 65,
     first_name: "Oliver",
@@ -199,6 +213,7 @@ export const usersData: User[] = [
   {
     username: "EmilyJohnson",
     email: "Emily.Johnson@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=EmilyJohnson",
     age: 62,
     first_name: "Emily",
@@ -215,6 +230,7 @@ export const usersData: User[] = [
   {
     username: "JackDavis",
     email: "Jack.Davis@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=JackDavis",
     age: 74,
     first_name: "Jack",
@@ -231,6 +247,7 @@ export const usersData: User[] = [
   {
     username: "SophiaMartinez",
     email: "Sophia.Martinez@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url:
       "https://api.dicebear.com/6.x/adventurer/svg?seed=SophiaMartinez",
     age: 58,
@@ -248,6 +265,7 @@ export const usersData: User[] = [
   {
     username: "LiamGarcia",
     email: "Liam.Garcia@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=LiamGarcia",
     age: 33,
     first_name: "Liam",
@@ -264,6 +282,7 @@ export const usersData: User[] = [
   {
     username: "IsabellaLee",
     email: "Isabella.Lee@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=IsabellaLee",
     age: 29,
     first_name: "Isabella",
@@ -280,6 +299,7 @@ export const usersData: User[] = [
   {
     username: "EthanWilson",
     email: "Ethan.Wilson@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=EthanWilson",
     age: 40,
     first_name: "Ethan",
@@ -296,6 +316,7 @@ export const usersData: User[] = [
   {
     username: "MiaWhite",
     email: "Mia.White@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url: "https://api.dicebear.com/6.x/adventurer/svg?seed=MiaWhite",
     age: 36,
     first_name: "Mia",
@@ -312,6 +333,7 @@ export const usersData: User[] = [
   {
     username: "BenjaminMartin",
     email: "Benjamin.Martin@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url:
       "https://api.dicebear.com/6.x/adventurer/svg?seed=BenjaminMartin",
     age: 49,
@@ -329,6 +351,7 @@ export const usersData: User[] = [
   {
     username: "CharlotteAnderson",
     email: "Charlotte.Anderson@example.com",
+    password: process.env.USER_PASSWORD,
     avatar_url:
       "https://api.dicebear.com/6.x/adventurer/svg?seed=CharlotteAnderson",
     age: 52,

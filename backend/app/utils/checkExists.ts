@@ -7,11 +7,12 @@ import * as usersRepo from "../repositories/users";
 import * as helpTypesRepo from "../repositories/helpTypes";
 
 export const checkExists = async (
-  getById: (id: number) => Promise<any>,
+  getById: (id: number, helperId: number) => Promise<any>,
   id: number,
-  errorObj: ErrorObj
+  errorObj: ErrorObj,
+  helperId?: number
 ) => {
-  const result = await getById(id);
+  const result = await getById(id, helperId!);
   if (
     !result ||
     (Array.isArray(result) && result.length === 0) ||
@@ -40,13 +41,13 @@ export const commentExists = async (comment_id: number) => {
 
 export const helpOfferExists = async (
   help_request_id: number,
-  helperId: number
+  helper_id: number
 ) => {
   return await checkExists(
-    async (id: number) =>
-      helpOffersRepo.getByHelpRequestIdAndHelperId(help_request_id, helperId),
+    helpOffersRepo.getByHelpRequestIdAndHelperId,
     help_request_id,
-    errors.HELP_OFFER_NOT_FOUND
+    errors.HELP_OFFER_NOT_FOUND,
+    helper_id
   );
 };
 

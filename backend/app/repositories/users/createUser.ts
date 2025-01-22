@@ -1,11 +1,9 @@
 import db from "../../connection";
 import { User } from "../../db/seeds/data/test/users";
 import { postcodeConverter } from "../../utils/postcodeConverter";
-import { AppError } from "../../errors/AppError";
-import { errors } from "../../errors/errors";
 
 export const createUser = async (userBody: User): Promise<User> => {
-  const { first_name, last_name, address, postcode } = userBody;
+  const { first_name, last_name, address, postcode, help_radius } = userBody;
 
   const coordinates = await postcodeConverter(postcode.toString());
   let latitude: number | undefined;
@@ -19,53 +17,31 @@ export const createUser = async (userBody: User): Promise<User> => {
   userBody.longitude = longitude;
   userBody.latitude = latitude;
 
-  const {
-    username,
-    email,
-    avatar_url,
-    age,
-    about,
-    phone_number,
-    additional_contacts,
-    help_radius,
-  } = userBody;
-
-  if (
-    !first_name ||
-    !last_name ||
-    !address ||
-    !postcode ||
-    !longitude ||
-    !latitude ||
-    !help_radius
-  ) {
-    throw new AppError(errors.MANDATORY_FIELD_ERROR);
-  }
+  const query = `
+    INSERT INTO users 
+    (username, email, password, avatar_url, age, first_name, last_name, about, address, postcode, phone_number, additional_contacts, help_radius, longitude, latitude)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+    RETURNING *
+  `;
 
   const values = [
-    username,
-    email,
-    avatar_url,
-    age,
+    userBody.username,
+    userBody.email,
+    userBody.password,
+    userBody.avatar_url || null,
+    userBody.age || null,
     first_name,
     last_name,
-    about,
+    userBody.about || null,
     address,
     postcode,
-    phone_number,
-    additional_contacts,
+    userBody.phone_number || null,
+    userBody.additional_contacts || null,
     help_radius,
     longitude,
     latitude,
   ];
 
-  const query = `
-    INSERT INTO users 
-    (username, email, avatar_url, age, first_name, last_name, about, address, postcode, phone_number, additional_contacts, help_radius, longitude, latitude)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-    RETURNING id, username, email, avatar_url, age, first_name, last_name, about, address, postcode, phone_number, additional_contacts, help_radius, longitude, latitude;
-  `;
-
-  const { rows } = await db.query(query, values);
+  const { rows } = await db.query<User>(query, values);
   return rows[0];
 };
