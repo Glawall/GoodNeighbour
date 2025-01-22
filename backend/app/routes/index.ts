@@ -6,10 +6,14 @@ import * as helpRequestsController from "../controllers/helpRequests";
 import * as helpOffersController from "../controllers/helpOffers";
 import * as helpTypesController from "../controllers/helpTypes";
 import * as commentsController from "../controllers/comments";
+import * as authController from "../controllers/auth";
 
 router.get("/", (req, res, next) => {
   res.status(200).send({ message: "welcome to the Good Neighbour API" });
 });
+
+// * Auth
+router.post("/api/auth/login", authController.login);
 
 // * Users
 router.get("/api/users", usersController.getAllUsers);
@@ -62,12 +66,10 @@ router.delete(
 );
 
 // * Comments
-
 router.get(
   "/api/help-requests/:help_request_id/comments",
   commentsController.getCommentsByRequestId
 );
-
 router.get(
   "/api/help-requests/:help_request_id/comments/:comment_id",
   commentsController.getCommentById
@@ -80,13 +82,12 @@ router.patch(
   "/api/help-requests/:help_request_id/comments/:comment_id",
   commentsController.updateComment
 );
-
 router.delete(
   "/api/help-requests/:help_request_id/comments/:comment_id",
   commentsController.removeComment
 );
 
-// // * Types
+// * Types
 router.get("/api/help-types", helpTypesController.getAllHelpTypes);
 router.get(
   "/api/help-types/:help_type_id",

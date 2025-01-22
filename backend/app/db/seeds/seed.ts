@@ -1,9 +1,14 @@
 import format from "pg-format";
 import { readFileSync } from "fs";
 import path from "path";
+import dotenv from "dotenv";
 import db from "../../connection";
 import { Data } from "./data/test";
 import { preloadHelpTypes } from "../../utils/preloadHelpTypes";
+import * as bcrypt from "bcrypt";
+
+// Load environment variables
+dotenv.config();
 
 const schemaFiles = [
   "users.sql",
@@ -43,9 +48,23 @@ const seed = async ({
   try {
     await createTables();
 
+    // Hash passwords before inserting users
+    const usersWithHashedPasswords = await Promise.all(
+      usersData.map(async (user) => {
+        const passwordToHash = user.password || process.env.USER_PASSWORD;
+        if (!passwordToHash) {
+          throw new Error("Password is required for all users in seed data");
+        }
+        return {
+          ...user,
+          password: await bcrypt.hash(passwordToHash, 10),
+        };
+      })
+    );
+
     const insertUsersStr = format(
-      "INSERT INTO users (username, email, avatar_url, age, first_name, last_name, about, address, postcode, phone_number, additional_contacts, help_radius, longitude, latitude) VALUES %L;",
-      usersData.map(
+      "INSERT INTO users (username, email, avatar_url, age, first_name, last_name, about, address, postcode, phone_number, additional_contacts, help_radius, longitude, latitude, password) VALUES %L RETURNING *;",
+      usersWithHashedPasswords.map(
         ({
           username,
           email,
@@ -61,6 +80,7 @@ const seed = async ({
           help_radius,
           longitude,
           latitude,
+          password,
         }) => [
           username,
           email,
@@ -76,11 +96,13 @@ const seed = async ({
           help_radius,
           longitude,
           latitude,
+          password,
         ]
       )
     );
 
-    await db.query(insertUsersStr);
+    const insertUsersResult = await db.query(insertUsersStr);
+    const users = insertUsersResult.rows;
 
     const insertHelpTypeDataStr = format(
       "INSERT INTO help_types (name, description) VALUES %L",

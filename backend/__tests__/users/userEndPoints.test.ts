@@ -24,19 +24,22 @@ describe("createUser", () => {
     const userBody: User = {
       username: "glawall",
       email: "glawall@hotmail.com",
+      password: "password123",
       avatar_url:
-        "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1215.jpg",
+        "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1209.jpg",
       age: 26,
       first_name: "John",
       last_name: "Doe",
       about:
-        "Censura basium carcer. Delicate alius aperiam color virga cruentus traho. Correptius vesper supplanto voluptatum.",
+        "Censura basium carcer. Delicate alius aperiam color virga cruentus traho.",
       address: "120 College Place",
       postcode: "NW1 0DJ",
       phone_number: "079170986789",
       additional_contacts:
-        "basium carcer. Delicate alius aperiam color virga cruentus traho. Correptius vesper supplanto voluptatum.",
+        "basium carcer. Delicate alius aperiam color virga cruentus traho.",
       help_radius: 1500,
+      longitude: -0.136039,
+      latitude: 51.538105,
     };
 
     const {
@@ -48,17 +51,17 @@ describe("createUser", () => {
       username: "glawall",
       email: "glawall@hotmail.com",
       avatar_url:
-        "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1215.jpg",
+        "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1209.jpg",
       age: 26,
       first_name: "John",
       last_name: "Doe",
       about:
-        "Censura basium carcer. Delicate alius aperiam color virga cruentus traho. Correptius vesper supplanto voluptatum.",
+        "Censura basium carcer. Delicate alius aperiam color virga cruentus traho.",
       address: "120 College Place",
       postcode: "NW1 0DJ",
       phone_number: "079170986789",
       additional_contacts:
-        "basium carcer. Delicate alius aperiam color virga cruentus traho. Correptius vesper supplanto voluptatum.",
+        "basium carcer. Delicate alius aperiam color virga cruentus traho.",
       help_radius: 1500,
       latitude: 51.538105,
       longitude: -0.136039,

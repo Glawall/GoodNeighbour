@@ -8,16 +8,6 @@ export const getAllHelpRequests = async (
   order: string = "desc",
   help_type?: string
 ): Promise<HelpRequest[]> => {
-  const validSortBys = ["author_username", "help_type", "created_at"];
-  const validOrders = ["desc", "asc"];
-  if (sort_by && !validSortBys.includes(sort_by)) {
-    throw new AppError(errors.VALIDATION_ERROR);
-  }
-
-  if (order && !validOrders.includes(order)) {
-    throw new AppError(errors.VALIDATION_ERROR);
-  }
-
   let queryString = `
     SELECT
       help_requests.id AS id,

@@ -1,8 +1,8 @@
-
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(24),
     email VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
     avatar_url VARCHAR(100),
     age INT,
     first_name VARCHAR(100) NOT NULL,

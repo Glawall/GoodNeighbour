@@ -2,12 +2,13 @@ import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 import * as helpOffersRepo from "../../repositories/helpOffers";
 import { helpRequestExists, userExists, helpOfferExists } from "../../utils";
+import { HelpOffer } from "../../db/seeds/data/development/help-offers";
 
 export const updateHelpOffer = async (
   helpRequestId: number,
   helperId: number,
   authUserId: number,
-  helpOfferBody: any
+  helpOfferBody: Partial<HelpOffer>
 ) => {
   await userExists(helperId);
   const request = await helpRequestExists(helpRequestId);

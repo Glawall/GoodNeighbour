@@ -68,7 +68,7 @@ describe("getAllHelpRequests", () => {
       .expect(200);
     expect(helpRequests).toBeSortedBy("author_username", { descending: true });
   });
-  test("200 - GET: responds with help requests sorted by 'author_username' in descending order", async () => {
+  test("200 - GET: responds with help requests sorted by 'author_username' in ascending order", async () => {
     const {
       body: { helpRequests },
     } = await request(app)
