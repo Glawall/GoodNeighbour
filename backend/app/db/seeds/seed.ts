@@ -4,10 +4,8 @@ import path from "path";
 import dotenv from "dotenv";
 import db from "../../connection";
 import { Data } from "./data/test";
-import { preloadHelpTypes } from "../../utils/preloadHelpTypes";
 import * as bcrypt from "bcrypt";
 
-// Load environment variables
 dotenv.config();
 
 const schemaFiles = [
@@ -48,7 +46,6 @@ const seed = async ({
   try {
     await createTables();
 
-    // Hash passwords before inserting users
     const usersWithHashedPasswords = await Promise.all(
       usersData.map(async (user) => {
         const passwordToHash = user.password || process.env.USER_PASSWORD;
@@ -110,8 +107,6 @@ const seed = async ({
     );
 
     await db.query(insertHelpTypeDataStr);
-
-    await preloadHelpTypes();
 
     const insertHelpRequestsDataStr = format(
       "INSERT INTO help_requests (title, author_id, help_type_id, description, created_at, req_date, status) VALUES %L",
