@@ -1,13 +1,9 @@
 import { useAuth } from "../context/AuthProvider";
-import { useSendRequest } from "../hooks/useSendRequest";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const HelpOffers = () => {
   const { isLoggedIn, user, login, logout } = useAuth();
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
-  const { data, error, loading } = useSendRequest("users", "GET");
 
   useEffect(() => {
     if (data) {

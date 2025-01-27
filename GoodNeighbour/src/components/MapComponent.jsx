@@ -1,125 +1,96 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  Circle,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, Circle, InfoWindow } from "@react-google-maps/api";
 
-const MapComponent = ({ points }) => {
+const MapComponent = ({ points = [] }) => {
   const { user } = useAuth();
   const [map, setMap] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState(null);
 
-  const userPoints = {
-    name: "Helper",
-    latitude: user ? user.latitude : 0,
-    longitude: user ? user.longitude : 0,
+  // Ensure user coordinates are valid numbers
+  const userLat = parseFloat(user?.latitude) || 51.5074;
+  const userLng = parseFloat(user?.longitude) || -0.1278;
+
+  const userLocation = {
+    lat: userLat,
+    lng: userLng,
   };
 
-  const defaultCenter = { lat: 51.5074, lng: -0.1278 };
-
-  const center =
-    points.length > 0
-      ? { lat: userPoints.latitude, lng: userPoints.longitude }
-      : defaultCenter;
-
-  const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  // Filter out points with invalid coordinates
+  const validPoints = points.filter((point) => {
+    const lat = parseFloat(point.latitude);
+    const lng = parseFloat(point.longitude);
+    return !isNaN(lat) && !isNaN(lng);
+  });
 
   return (
-    <LoadScript googleMapsApiKey={googleMapsApiKey}>
-      <GoogleMap
-        mapContainerStyle={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "25px",
-          overflow: "hidden",
-          objectFit: "contain",
-        }}
-        center={center}
-        zoom={13}
-        onLoad={(mapInstance) => setMap(mapInstance)}
-      >
-        {points.map((point, index) => (
-          <Marker
-            key={index}
-            position={{ lat: point.latitude, lng: point.longitude }}
-            onClick={() => {
-              setSelectedPoint(point);
-            }}
-          >
-            {selectedPoint &&
-              selectedPoint.latitude === point.latitude &&
-              selectedPoint.longitude === point.longitude && (
-                <InfoWindow onCloseClick={() => setSelectedPoint(null)}>
-                  <div>
-                    <strong>
-                      Needed by: {point.first_name} {point.last_name}
-                    </strong>
-                    <br />
-                    <strong>{point.title}</strong>
-                    <br />
-                    <strong>Where: {point.postcode}</strong>
-                    <br />
-                    <a
-                      href={`https://www.google.com/maps?q=${point.latitude},${point.longitude}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View on Google Maps
-                    </a>
-                  </div>
-                </InfoWindow>
-              )}
-          </Marker>
-        ))}
+    <GoogleMap
+      mapContainerStyle={{
+        width: "100%",
+        height: "100%",
+        borderRadius: "25px",
+        overflow: "hidden",
+        objectFit: "contain",
+      }}
+      center={userLocation}
+      zoom={13}
+      onLoad={(mapInstance) => setMap(mapInstance)}
+    >
+      {validPoints.map((point) => (
+        <Marker
+          key={point.id}
+          position={{
+            lat: parseFloat(point.latitude),
+            lng: parseFloat(point.longitude),
+          }}
+          onClick={() => setSelectedPoint(point)}
+        >
+          {selectedPoint === point && (
+            <InfoWindow onCloseClick={() => setSelectedPoint(null)}>
+              <div>
+                <strong>
+                  {point.first_name} {point.last_name}
+                </strong>
+                <br />
+                <strong>{point.title}</strong>
+                <br />
+                <strong>Where: {point.postcode}</strong>
+                <br />
+                <a
+                  href={`https://www.google.com/maps?q=${point.latitude},${point.longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on Google Maps
+                </a>
+              </div>
+            </InfoWindow>
+          )}
+        </Marker>
+      ))}
 
-        {user && (
+      {user && (
+        <>
           <Marker
-            position={{ lat: userPoints.latitude, lng: userPoints.longitude }}
+            position={userLocation}
             icon={{
               url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
             }}
-            onClick={() => setSelectedPoint(userPoints)}
-          >
-            {selectedPoint &&
-              selectedPoint.latitude === userPoints.latitude &&
-              selectedPoint.longitude === userPoints.longitude && (
-                <InfoWindow onCloseClick={() => setSelectedPoint(null)}>
-                  <div>
-                    <strong>{userPoints.name}</strong>
-                    <br />
-                    {userPoints.description}
-                    <br />
-                    <a
-                      href={`https://www.google.com/maps?q=${userPoints.latitude},${userPoints.longitude}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View on Google Maps
-                    </a>
-                  </div>
-                </InfoWindow>
-              )}
-          </Marker>
-        )}
-
-        {user && (
+          />
           <Circle
-            center={{ lat: userPoints.latitude, lng: userPoints.longitude }}
+            center={userLocation}
             radius={1000}
             options={{
-              fillColor: "green",
+              fillColor: "blue",
               fillOpacity: 0.1,
-              strokeColor: "green",
-              strokeOpacity: 0.6,
+              strokeColor: "blue",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
             }}
           />
-        )}
-      </GoogleMap>
-    </LoadScript>
+        </>
+      )}
+    </GoogleMap>
   );
 };
 

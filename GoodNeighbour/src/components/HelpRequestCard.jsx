@@ -1,32 +1,45 @@
-import { useNavigate, Link } from "react-router-dom";
-import "../styling/HelpCard.css";
-import { formattedDate, formattedTime } from "../utils/DateFormatting";
+import React from "react";
+import { useAuth } from "../context/AuthProvider";
+import "../styling/HelpRequestCard.css";
+import { Link } from "react-router-dom";
+import { formatDate } from "../utils/DateFormatting";
 
-function HelpRequestCard({ helpRequest }) {
-  const navigate = useNavigate();
+const HelpRequestCard = ({ helpRequest, onSelect, onUpdate }) => {
+  const { user } = useAuth();
 
-  function handleClick() {
-    navigate(`/help-requests/${helpRequest.id}`);
-  }
+  if (!helpRequest) return null;
+
   return (
-    <ul key={helpRequest.title} className="help-request-list">
-      <div className="help-request-card">
-        <h3 onClick={handleClick}>{helpRequest.title}</h3>
-        <p>
-          Help needed by: {helpRequest.author_first_name}{" "}
-          {helpRequest.author_last_name}
-        </p>
-        <p>
-          When: {formattedDate(helpRequest.created_at)}{" "}
-          {formattedTime(helpRequest.created_at)}{" "}
-        </p>
-        <p>{helpRequest.description}</p>
-        <Link to={`/helpRequests/${helpRequest.id}`}>
-          Get more details here{" "}
+    <div className="help-request-card" onClick={() => onSelect?.(helpRequest)}>
+      <div className="help-request-header">
+        <h3>{helpRequest.title}</h3>
+        <span className={`status ${helpRequest.status}`}>
+          {helpRequest.status}
+        </span>
+      </div>
+      <p className="help-type">{helpRequest.help_type}</p>
+      <p className="description">{helpRequest.description}</p>
+      <div className="help-request-footer">
+        <div className="author-info">
+          <p>
+            Posted by: {helpRequest.author_first_name}{" "}
+            {helpRequest.author_last_name}
+          </p>
+          <p>Location: {helpRequest.author_postcode}</p>
+          <p>When: {formatDate(helpRequest.created_at)}</p>
+        </div>
+      </div>
+      <div className="card-actions">
+        <Link
+          to={`/help-requests/${helpRequest.id}`}
+          className="view-details-link"
+          onClick={(e) => e.stopPropagation()}
+        >
+          View Details
         </Link>
       </div>
-    </ul>
+    </div>
   );
-}
+};
 
 export default HelpRequestCard;
