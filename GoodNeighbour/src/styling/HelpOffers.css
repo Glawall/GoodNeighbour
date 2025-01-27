@@ -1,0 +1,20 @@
+.help-offers-section {
+    padding: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.help-offers-section h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.offers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.offer-details {
+    flex: 1;
+}

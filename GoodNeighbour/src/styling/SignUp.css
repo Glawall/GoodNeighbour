@@ -1,0 +1,106 @@
+.signup-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.signup-container h2 {
+    color: #343434;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #343434;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(115, 191, 126, 0.2);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.submit-btn {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: var(--hover-green);
+}
+
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+label[for*="required"]::after,
+label[for*="username"]::after,
+label[for*="email"]::after,
+label[for*="password"]::after,
+label[for*="first_name"]::after,
+label[for*="last_name"]::after,
+label[for*="address"]::after,
+label[for*="postcode"]::after,
+label[for*="help_radius"]::after {
+    content: "*";
+    color: #dc3545;
+    margin-left: 4px;
+}
+
+.login-prompt {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.login-link {
+    color: var(--primary-green);
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+
+.login-link:hover {
+    color: var(--hover-green);
+}

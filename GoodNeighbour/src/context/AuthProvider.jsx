@@ -1,35 +1,43 @@
-import React, { createContext, useState, useCallback, useContext } from "react";
-import Cookies from "js-cookie";
+import React, { createContext, useContext, useState } from "react";
+import { useAuth as useAuthHook } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
-const AuthContext = createContext({
-  isLoggedIn: false,
-  user: null,
-  login: () => {},
-  logout: () => {},
-});
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const storedUser = Cookies.get("user");
-    return storedUser ? JSON.parse(storedUser) : null;
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const isLoggedIn = !!user;
-  const login = useCallback((userData) => {
-    Cookies.set("user", JSON.stringify(userData), { expires: 7, path: "/" });
-    setUser(userData);
-  }, []);
+  const { validateCredentials } = useAuthHook();
+  const navigate = useNavigate();
 
-  const logout = useCallback(() => {
-    Cookies.remove("user", { path: "/" });
+  const login = async (credentials) => {
+    try {
+      const userData = await validateCredentials(credentials);
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      navigate("/help-requests");
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const logout = () => {
     setUser(null);
-  }, []);
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    login,
+    logout,
+    isLoggedIn: !!user,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

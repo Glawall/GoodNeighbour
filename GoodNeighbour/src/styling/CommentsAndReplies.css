@@ -1,0 +1,122 @@
+.comments-section {
+    background: white;
+}
+
+.comments-section h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment {
+    background-color: white;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-green);
+}
+
+.comments-list .comment.reply {
+    background-color: var(--light-green) !important;
+    margin-left: 2rem;
+    border-left: 2px solid var(--primary-green);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: #333;
+}
+
+.comment-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.comment-body {
+    color: #444;
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.comment-actions button {
+    min-width: 80px;
+}
+
+.reply-button {
+    min-width: 80px;
+}
+
+.edit-button {
+    min-width: 80px;
+}
+
+.delete-button {
+    min-width: 80px;
+}
+
+/* Forms */
+.reply-form,
+.comment-form,
+.edit-form {
+    margin: 1rem 0;
+}
+
+.reply-form textarea,
+.comment-form textarea,
+.edit-form textarea {
+    width: 100%;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.form-actions button {
+    min-width: 80px;
+}
+
+.comment-content {
+    margin-bottom: 1rem;
+}
+
+.comment-author {
+    font-weight: 500;
+    color: #343434;
+    margin: 0.5rem 0;
+}
+
+.comment-date {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.create-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.main-comment-form {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+}

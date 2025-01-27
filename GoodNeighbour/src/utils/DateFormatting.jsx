@@ -1,19 +1,10 @@
-export function formattedDate(created_at) {
-  const longDate = new Date(created_at);
-  const options = {
+export const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-GB", {
     day: "numeric",
-    month: "numeric",
+    month: "short",
     year: "numeric",
-  };
-  return longDate.toLocaleDateString("en-GB", options);
-}
-
-export function formattedTime(created_at) {
-  const date = new Date(created_at);
-  const formattedDate = `${
-    ("0" + date.getHours()).slice(-2) +
-    ":" +
-    ("0" + date.getMinutes()).slice(-2)
-  }`;
-  return formattedDate;
-}
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};

@@ -1,0 +1,29 @@
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.signup-prompt {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.signup-link {
+    color: var(--primary-green);
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+
+.signup-link:hover {
+    color: var(--hover-green);
+}
