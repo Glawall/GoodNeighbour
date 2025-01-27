@@ -20,7 +20,7 @@ export const updateUser = async (
   const values = [];
 
   if (avatar_url) {
-    setClause.push(`email = $${values.push(avatar_url)}`);
+    setClause.push(`avatar_url = $${values.push(avatar_url)}`);
   }
   if (email) {
     setClause.push(`email = $${values.push(email)}`);
