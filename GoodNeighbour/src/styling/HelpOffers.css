@@ -16,5 +16,259 @@
 }
 
 .offer-details {
-    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: var(--light-green);
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.help-offers-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.view-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.toggle-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--light-green);
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.offers-section {
+    margin-top: 2rem;
+}
+
+.offers-section h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.offer-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.offer-card h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.description {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.location {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.status.active {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status.accepted {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status.declined {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.accept-btn,
+.decline-btn,
+.delete-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.accept-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.accept-btn.active {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.decline-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.decline-btn.active {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.helper-info {
+    flex-grow: 1;
+}
+
+.helper-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.helper-email {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.offer-date {
+    color: #888;
+    font-size: 0.8em;
+}
+
+.status-select {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+
+.no-offers {
+    color: #888;
+    font-style: italic;
+}
+
+.offer-status {
+    display: flex;
+    gap: 10px;
+}
+
+.offer-status button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 768px) {
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.request-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.request-summary h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.received-offers {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.received-offers h4 {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.status-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.status-btn.active {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.status-btn.not-selected {
+    background-color: #ffd700;
+    color: #333;
+}
+
+.button-container {
+    margin-top: 1rem;
+}
+
+.view-details-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: white;
+    color: var(--primary-green);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-details-btn:hover {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+/* For the My Help Offers section only */
+.offers-grid .view-details-btn {
+    width: 100%;
 }

@@ -10,11 +10,14 @@ const Header = () => {
   return (
     <header className="header">
       <nav className="nav-links">
+        <Link to="/profile" className="nav-link">
+          My Profile
+        </Link>
         <Link to="/help-requests" className="nav-link">
           Help Requests
         </Link>
-        <Link to="/profile" className="nav-link">
-          Profile
+        <Link to="/help-offers" className="nav-link">
+          My Help Offers
         </Link>
       </nav>
 
@@ -24,7 +27,7 @@ const Header = () => {
 
       <div className="profile-section">
         <Link to="/profile">
-          <img className="user-avatar" src={user.avatar_url} alt="Profile" />
+          <img className="user-avatar" src={user.avatar_url} alt="useravatar" />
         </Link>
         <p className="username-text">{user.username}</p>
         <button className="logout-btn" onClick={logout}>
