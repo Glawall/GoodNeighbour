@@ -8,6 +8,7 @@ import {
   HelpRequest,
   HelpRequestBody,
 } from "../../app/db/seeds/data/test/help-requests";
+import { getByUserId } from "../../app/services/helpRequests/getByUserId";
 
 beforeEach(async () => {
   await db.query("BEGIN");
@@ -138,11 +139,12 @@ describe("getByHelpRequestId", () => {
   });
 });
 
-describe("getByUserId", () => {
-  test("200 - GET: responds with an array of help-request objects, based related to the user based on their user_id", async () => {
+describe.only("getByUserId", () => {
+  test("200 - GET: responds with an array of help-request objects with offers and helper info", async () => {
     const {
       body: { helpRequests },
     } = await request(app).get("/api/users/1/help-requests").expect(200);
+
     helpRequests.forEach((helpRequest: HelpRequest) => {
       expect(helpRequest).toHaveProperty("id");
       expect(helpRequest).toHaveProperty("title");
@@ -152,14 +154,23 @@ describe("getByUserId", () => {
       expect(helpRequest).toHaveProperty("created_at");
       expect(helpRequest).toHaveProperty("req_date");
       expect(helpRequest).toHaveProperty("status");
+      expect(helpRequest).toHaveProperty("help_request_id");
+      expect(helpRequest).toHaveProperty("offer_status");
+      expect(helpRequest).toHaveProperty("offer_created_at");
+      expect(helpRequest).toHaveProperty("helper_id");
+      expect(helpRequest).toHaveProperty("helper_username");
+      expect(helpRequest).toHaveProperty("helper_email");
+      expect(helpRequest).toHaveProperty("helper_avatar_url");
     });
   });
+
   test("404 - GET: responds with an error when the user does not exist", async () => {
     const {
       body: { error },
     } = await request(app).get("/api/users/9999/help-requests").expect(404);
     expect(error).toMatchObject({ message: "User was not found" });
   });
+
   test("400 - GET: responds with an error when the user_id is not a valid number", async () => {
     const {
       body: { error },

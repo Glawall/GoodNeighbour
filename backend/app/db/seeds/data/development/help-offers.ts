@@ -6,7 +6,7 @@ export interface HelpOffer {
 }
 
 export const helpOffersData: HelpOffer[] = [
-  // Help Request 1
+  // Help Request 1 (author_id: 1)
   {
     help_request_id: 1,
     helper_id: 2,
@@ -19,176 +19,156 @@ export const helpOffersData: HelpOffer[] = [
     status: "declined",
     created_at: "2024-05-21T14:00:00.000Z",
   },
+  {
+    help_request_id: 1,
+    helper_id: 4,
+    status: "active",
+    created_at: "2024-05-21T15:00:00.000Z",
+  },
 
-  // Help Request 2
+  // Help Request 2 (author_id: 2)
   {
     help_request_id: 2,
-    helper_id: 4,
+    helper_id: 3,
     status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
     help_request_id: 2,
-    helper_id: 5,
+    helper_id: 4,
     status: "declined",
     created_at: "2024-05-21T14:00:00.000Z",
   },
 
-  // Help Request 3
+  // Help Request 3 (author_id: 3)
   {
     help_request_id: 3,
-    helper_id: 4,
+    helper_id: 1,
     status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
     help_request_id: 3,
-    helper_id: 5,
+    helper_id: 2,
     status: "declined",
     created_at: "2024-05-21T14:00:00.000Z",
   },
 
-  // Help Request 4
+  // Help Request 4 (author_id: 4)
   {
     help_request_id: 4,
-    helper_id: 6,
-    status: "active",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-
-  // Help Request 5
-  {
-    help_request_id: 5,
-    helper_id: 7,
+    helper_id: 1,
     status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
-    help_request_id: 5,
-    helper_id: 8,
-    status: "declined",
+    help_request_id: 4,
+    helper_id: 2,
+    status: "active",
     created_at: "2024-05-21T14:00:00.000Z",
   },
   {
-    help_request_id: 5,
-    helper_id: 9,
-    status: "active",
-    created_at: "2024-05-21T13:00:00.000Z",
+    help_request_id: 4,
+    helper_id: 3,
+    status: "declined",
+    created_at: "2024-05-21T15:00:00.000Z",
   },
 
-  // Help Requests 6-39 (continuing with pattern)
+  // Help Request 5 (author_id: 5)
   {
-    help_request_id: 6,
-    helper_id: 10,
+    help_request_id: 5,
+    helper_id: 1,
     status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
-    help_request_id: 6,
-    helper_id: 11,
+    help_request_id: 5,
+    helper_id: 2,
     status: "declined",
     created_at: "2024-05-21T14:00:00.000Z",
   },
 
-  // Continue with more help requests...
+  // Help Request 6 (author_id: 6)
+  {
+    help_request_id: 6,
+    helper_id: 1,
+    status: "active",
+    created_at: "2024-05-21T13:00:00.000Z",
+  },
+  {
+    help_request_id: 6,
+    helper_id: 2,
+    status: "declined",
+    created_at: "2024-05-21T14:00:00.000Z",
+  },
+  {
+    help_request_id: 6,
+    helper_id: 3,
+    status: "active",
+    created_at: "2024-05-21T15:00:00.000Z",
+  },
+
+  // Help Request 7 (author_id: 7)
   {
     help_request_id: 7,
-    helper_id: 12,
-    status: "active",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-
-  {
-    help_request_id: 8,
-    helper_id: 13,
+    helper_id: 1,
     status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
-    help_request_id: 8,
-    helper_id: 14,
+    help_request_id: 7,
+    helper_id: 2,
     status: "declined",
     created_at: "2024-05-21T14:00:00.000Z",
   },
 
-  // Continue adding for remaining help requests...
+  // Help Request 8 (author_id: 8)
   {
-    help_request_id: 9,
-    helper_id: 15,
+    help_request_id: 8,
+    helper_id: 1,
     status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
+  {
+    help_request_id: 8,
+    helper_id: 2,
+    status: "active",
+    created_at: "2024-05-21T14:00:00.000Z",
+  },
 
+  // Help Request 9 (author_id: 9)
+  {
+    help_request_id: 9,
+    helper_id: 1,
+    status: "active",
+    created_at: "2024-05-21T13:00:00.000Z",
+  },
+  {
+    help_request_id: 9,
+    helper_id: 2,
+    status: "declined",
+    created_at: "2024-05-21T14:00:00.000Z",
+  },
+  {
+    help_request_id: 9,
+    helper_id: 3,
+    status: "active",
+    created_at: "2024-05-21T15:00:00.000Z",
+  },
+
+  // Help Request 10 (author_id: 10)
+  {
+    help_request_id: 10,
+    helper_id: 1,
+    status: "active",
+    created_at: "2024-05-21T13:00:00.000Z",
+  },
   {
     help_request_id: 10,
     helper_id: 2,
-    status: "active",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-  {
-    help_request_id: 10,
-    helper_id: 3,
     status: "declined",
     created_at: "2024-05-21T14:00:00.000Z",
   },
-
-  // Help Request 21 (with accepted offer)
-  {
-    help_request_id: 21,
-    helper_id: 6,
-    status: "accepted",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-  {
-    help_request_id: 21,
-    helper_id: 7,
-    status: "declined",
-    created_at: "2024-05-21T14:00:00.000Z",
-  },
-
-  // Help Request 25 (with accepted offer)
-  {
-    help_request_id: 25,
-    helper_id: 8,
-    status: "accepted",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-  {
-    help_request_id: 25,
-    helper_id: 9,
-    status: "declined",
-    created_at: "2024-05-21T14:00:00.000Z",
-  },
-
-  // Help Request 30 (with accepted offer)
-  {
-    help_request_id: 30,
-    helper_id: 10,
-    status: "accepted",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-  {
-    help_request_id: 30,
-    helper_id: 11,
-    status: "active",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-
-  // Help Request 35 (with accepted offer)
-  {
-    help_request_id: 35,
-    helper_id: 12,
-    status: "accepted",
-    created_at: "2024-05-21T13:00:00.000Z",
-  },
-  {
-    help_request_id: 35,
-    helper_id: 13,
-    status: "declined",
-    created_at: "2024-05-21T14:00:00.000Z",
-  },
-
-  // Add more offers for other help requests...
 
   // Help Requests 11-20
   {
@@ -444,6 +424,42 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 39,
     helper_id: 13,
+    status: "declined",
+    created_at: "2024-05-21T14:00:00.000Z",
+  },
+
+  // Help Request 11 (author_id: 1)
+  {
+    help_request_id: 11,
+    helper_id: 3,
+    status: "active",
+    created_at: "2024-05-21T13:00:00.000Z",
+  },
+
+  // Help Request 12 (author_id: 2)
+  {
+    help_request_id: 12,
+    helper_id: 4,
+    status: "active",
+    created_at: "2024-05-21T13:00:00.000Z",
+  },
+  {
+    help_request_id: 12,
+    helper_id: 5,
+    status: "active",
+    created_at: "2024-05-21T14:00:00.000Z",
+  },
+
+  // Help Request 13 (author_id: 3)
+  {
+    help_request_id: 13,
+    helper_id: 5,
+    status: "active",
+    created_at: "2024-05-21T13:00:00.000Z",
+  },
+  {
+    help_request_id: 13,
+    helper_id: 6,
     status: "declined",
     created_at: "2024-05-21T14:00:00.000Z",
   },
