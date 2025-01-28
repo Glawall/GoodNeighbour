@@ -28,6 +28,17 @@ export function useHelpRequests() {
     }
   }, []);
 
+  const getByUserId = useCallback(async (userId) => {
+    try {
+      const response = await api.get(`/users/${userId}/help-requests`);
+      return response.data.helpRequests || [];
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch user's help requests"
+      );
+    }
+  }, []);
+
   const createHelpRequest = useCallback(async (requestData) => {
     const user = JSON.parse(localStorage.getItem("user"));
     try {
@@ -43,5 +54,10 @@ export function useHelpRequests() {
     }
   }, []);
 
-  return { getAllHelpRequests, getHelpRequestById, createHelpRequest };
+  return {
+    getAllHelpRequests,
+    getHelpRequestById,
+    createHelpRequest,
+    getByUserId,
+  };
 }

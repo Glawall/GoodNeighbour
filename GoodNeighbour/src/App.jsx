@@ -7,6 +7,7 @@ import HelpRequests from "./pages/HelpRequests";
 import HelpRequest from "./pages/HelpRequest";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
+import HelpOffers from "./pages/HelpOffers";
 
 const PrivateRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
@@ -79,6 +80,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/help-offers"
+            element={
+              <PrivateRoute>
+                <HelpOffers />
               </PrivateRoute>
             }
           />

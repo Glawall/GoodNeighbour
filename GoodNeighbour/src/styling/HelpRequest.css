@@ -3,25 +3,54 @@
     padding: 2rem;
     background-color: var(--light-green);
     min-height: calc(100vh - 60px);
+    max-width: none;
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 2400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 3fr 600px;
+    gap: 2rem;
+}
+
+/* Override index.css card-container styles specifically for help request page */
+.help-request-page .card-container {
+    max-width: none !important;
+    margin: 0;
+    width: 100%;
+    box-shadow: none;
+}
+
+/* Override specifically for the main help request container */
+.help-request-page .help-request-container.card-container {
+    min-width: 1000px !important;
+    width: 100%;
+    flex: 1;
+    margin-left: -10rem;
+}
+
+/* Ensure offers container is also full width within its grid column */
+.help-request-page .offers-container.card-container {
+    max-width: none !important;
+    width: 100%;
 }
 
 .help-request-container {
-    max-width: 1200px !important;
     width: 100%;
+    min-width: 1600px;
     overflow: hidden;
-}
-
-.help-request-container .help-request-container {
-    max-width: none;
-    margin: 0;
-    padding: 0;
+    padding: 2rem;
+    background: none;
     box-shadow: none;
-    border-radius: 0;
+    padding-top: 3rem;
 }
 
 .request-info {
     padding: 2rem;
     border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
 }
 
 .request-header {
@@ -57,6 +86,9 @@
 
 .comments-section {
     padding: 2rem;
+    padding-top: 0;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .route-section {
@@ -73,7 +105,6 @@
     background-color: white;
     border-radius: 10px;
     padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-width: 0;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -84,7 +115,6 @@
     background-color: white;
     border-radius: 10px;
     padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-width: 0;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -135,18 +165,6 @@
     color: #4b5563;
     margin: 0.5rem 0;
     line-height: 1.5;
-}
-
-.comments-section {
-    grid-area: comments;
-    width: 100%;
-    background-color: white;
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 2rem;
-    min-width: 0;
-    box-sizing: border-box;
 }
 
 .comments-section h3 {
@@ -306,6 +324,7 @@
     background-color: #5da866;
 }
 
+/* Add responsive layout for smaller screens */
 @media (max-width: 1200px) {
     .help-request-container {
         grid-template-columns: 1fr;
@@ -318,5 +337,31 @@
 
     .route-section {
         padding: 1rem 0;
+    }
+}
+
+.main-content {
+    min-width: 0;
+}
+
+.offers-sidebar {
+    min-width: 0;
+}
+
+.offers-container {
+    padding: 2rem;
+    height: fit-content;
+    margin-left: 1rem;
+    background-color: white;
+    border-radius: 10px;
+}
+
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .offers-container {
+        margin-left: 0;
     }
 }
