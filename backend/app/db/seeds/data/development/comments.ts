@@ -16,6 +16,51 @@ export interface NewCommentBody {
 }
 
 export const commentsData: Comment[] = [
+  // Help Request: "Need help with grocery shopping"
+  {
+    help_request_id: 1,
+    author_id: 2,
+    created_at: "2024-05-21T13:00:00.000Z",
+    parent_id: null,
+    description:
+      "I can help with your Monday shopping. I'm heading there anyway and have a car!",
+  },
+  {
+    help_request_id: 1,
+    author_id: 1,
+    created_at: "2024-05-21T13:30:00.000Z",
+    parent_id: 1,
+    description: "That would be perfect! What time works best for you?",
+  },
+
+  // Help Request: "Assistance required for house cleaning" (type 3)
+  {
+    help_request_id: 2,
+    author_id: 3,
+    created_at: "2024-05-22T10:00:00.000Z",
+    parent_id: null,
+    description:
+      "I have experience with house cleaning and I'm free this Saturday. I have my own cleaning supplies too.",
+  },
+
+  // Help Request: "Need a ride to the doctor's appointment" (type 2)
+  {
+    help_request_id: 3,
+    author_id: 4,
+    created_at: "2024-05-20T17:00:00.000Z",
+    parent_id: null,
+    description:
+      "I can drive you to your appointment on Wednesday. What time do you need to be there?",
+  },
+  {
+    help_request_id: 3,
+    author_id: 3,
+    created_at: "2024-05-20T17:30:00.000Z",
+    parent_id: 3,
+    description:
+      "The appointment is at 11:30am. Would you be able to pick me up at 11am?",
+  },
+
   // Help Request 1 - Threaded conversation
   {
     help_request_id: 1,
@@ -55,9 +100,10 @@ export const commentsData: Comment[] = [
   {
     help_request_id: 3,
     author_id: 2,
-    created_at: "2024-05-22T14:30:00.000Z",
-    parent_id: 3,
-    description: "Would this weekend work? The weather forecast looks good.",
+    created_at: "2024-05-22T14:30:00.321Z",
+    parent_id: null,
+    description:
+      "I'm heading to the supermarket on Friday morning anyway, happy to help with your shopping!",
   },
 
   // Help Request 4 - Single comment
@@ -436,99 +482,149 @@ export const commentsData: Comment[] = [
     parent_id: 31,
     description: "Weekend would be perfect! Saturday afternoon free?",
   },
-];
 
-export const comments = [
+  // Help Request with Shopping (type 1)
   {
-    id: 1,
-    help_request_id: 1,
-    author_id: 2,
-    content:
-      "I live nearby and could help with this. Would Saturday morning work for you?",
-    created_at: "2024-01-15T10:30:00.000Z",
-    parent_id: null,
-  },
-  {
-    id: 2,
-    help_request_id: 1,
-    author_id: 1,
-    content: "Saturday morning would be perfect! Around 10am?",
-    created_at: "2024-01-15T11:15:00.000Z",
-    parent_id: 1,
-  },
-  {
-    id: 3,
-    help_request_id: 1,
-    author_id: 2,
-    content: "10am works great. I'll see you then!",
-    created_at: "2024-01-15T11:30:00.000Z",
-    parent_id: 2,
-  },
-  {
-    id: 4,
-    help_request_id: 2,
-    author_id: 3,
-    content:
-      "I'd love to help but I'm away that weekend. Hope you find someone!",
-    created_at: "2024-01-16T09:00:00.000Z",
-    parent_id: null,
-  },
-  {
-    id: 5,
-    help_request_id: 2,
-    author_id: 4,
-    content: "I'm free and only a 10 minute walk away. Happy to help!",
-    created_at: "2024-01-16T10:20:00.000Z",
-    parent_id: null,
-  },
-  {
-    id: 6,
-    help_request_id: 3,
+    help_request_id: 32,
     author_id: 5,
-    content:
-      "I do regular trips to the supermarket on Thursdays, I could help then?",
-    created_at: "2024-01-17T14:00:00.000Z",
+    created_at: "2024-05-25T11:00:00.000Z",
     parent_id: null,
+    description:
+      "I do my shopping at that supermarket every Tuesday, happy to help!",
   },
   {
-    id: 7,
-    help_request_id: 3,
+    help_request_id: 32,
     author_id: 1,
-    content: "Thursday would be too late, I need help before Tuesday",
-    created_at: "2024-01-17T14:30:00.000Z",
-    parent_id: 6,
+    created_at: "2024-05-25T11:30:00.000Z",
+    parent_id: 32,
+    description:
+      "Tuesday would be perfect! Around what time do you usually go?",
   },
   {
-    id: 8,
-    help_request_id: 3,
+    help_request_id: 32,
+    author_id: 5,
+    created_at: "2024-05-25T12:00:00.000Z",
+    parent_id: 32,
+    description: "I usually go around 10am when it's quieter. Would that work?",
+  },
+
+  // Help Request with Rides (type 2)
+  {
+    help_request_id: 33,
     author_id: 6,
-    content: "I could help tomorrow morning if that works?",
-    created_at: "2024-01-17T15:00:00.000Z",
-    parent_id: 7,
+    created_at: "2024-05-25T13:00:00.000Z",
+    parent_id: null,
+    description:
+      "I drive past the hospital every morning, I can give you a lift!",
   },
+
+  // Help Request with Cleaning (type 3)
   {
-    id: 9,
-    help_request_id: 4,
+    help_request_id: 34,
     author_id: 7,
-    content:
-      "I'm a retired gardener and would be happy to give you some advice. When are you free?",
-    created_at: "2024-01-18T11:00:00.000Z",
+    created_at: "2024-05-25T14:00:00.000Z",
     parent_id: null,
+    description: "I used to work as a cleaner, I'd be happy to help with this.",
   },
   {
-    id: 10,
-    help_request_id: 5,
+    help_request_id: 34,
+    author_id: 2,
+    created_at: "2024-05-25T14:30:00.000Z",
+    parent_id: 34,
+    description: "That would be wonderful! When could you come by?",
+  },
+
+  // Help Request with Packages (type 4)
+  {
+    help_request_id: 35,
     author_id: 8,
-    content: "I have a car and regularly drive past there. Happy to help!",
-    created_at: "2024-01-19T09:15:00.000Z",
+    created_at: "2024-05-25T15:00:00.000Z",
     parent_id: null,
+    description:
+      "I work from home and can definitely help collect your packages.",
+  },
+
+  // Help Request with DIY (type 5)
+  {
+    help_request_id: 36,
+    author_id: 3,
+    created_at: "2024-05-25T16:00:00.000Z",
+    parent_id: null,
+    description:
+      "I'm experienced with DIY and would love to help with this project!",
   },
   {
-    id: 11,
-    help_request_id: 5,
+    help_request_id: 36,
+    author_id: 4,
+    created_at: "2024-05-25T16:30:00.000Z",
+    parent_id: 36,
+    description:
+      "That's great! I have all the tools needed. When are you free?",
+  },
+  {
+    help_request_id: 36,
+    author_id: 3,
+    created_at: "2024-05-25T17:00:00.000Z",
+    parent_id: 36,
+    description: "I could come by this Saturday morning if that works for you?",
+  },
+
+  // Help Request with Gardening (type 6)
+  {
+    help_request_id: 37,
+    author_id: 4,
+    created_at: "2024-05-25T18:00:00.000Z",
+    parent_id: null,
+    description: "I'm a keen gardener and could help with this on the weekend!",
+  },
+
+  // Help Request 38 - Update label
+  {
+    help_request_id: 38,
+    author_id: 5,
+    created_at: "2024-05-25T19:00:00.000Z",
+    parent_id: null,
+    description: "I can help with the school run, it's on my way to work.",
+  },
+  {
+    help_request_id: 38,
     author_id: 1,
-    content: "That would be amazing, thank you! When would suit you?",
-    created_at: "2024-01-19T09:30:00.000Z",
-    parent_id: 10,
+    created_at: "2024-05-25T19:30:00.000Z",
+    parent_id: 38,
+    description: "That would be so helpful! What time do you usually leave?",
+  },
+
+  // Help Request 39 - Update label
+  {
+    help_request_id: 39,
+    author_id: 6,
+    created_at: "2024-05-25T20:00:00.000Z",
+    parent_id: null,
+    description:
+      "I can help with the deep clean, I have all the supplies needed.",
+  },
+  {
+    help_request_id: 39,
+    author_id: 2,
+    created_at: "2024-05-25T20:30:00.000Z",
+    parent_id: 39,
+    description: "Perfect! Would you be available next weekend?",
+  },
+  {
+    help_request_id: 39,
+    author_id: 6,
+    created_at: "2024-05-25T21:00:00.000Z",
+    parent_id: 39,
+    description: "Yes, I'm free next Saturday afternoon. Shall we say 2pm?",
+  },
+
+  // For a shopping request:
+  {
+    help_request_id: 9,
+    author_id: 10,
+    created_at: "2024-05-21T16:30:20.789Z",
+    parent_id: null,
+    description:
+      "I can help clean your house on Thursday. I have professional cleaning experience.",
   },
 ];

@@ -6,13 +6,19 @@ import seed from "../../app/db/seeds/seed";
 import { HelpOffer } from "../../app/db/seeds/data/test/help-offers";
 
 beforeEach(async () => {
-  await db.query("BEGIN");
-  await seed(testData);
+  try {
+    await db.query("BEGIN");
+    await seed(testData);
+  } catch (error) {
+    console.error("Error in test setup:", error);
+    throw error;
+  }
 });
 
 afterEach(async () => {
   await db.query("ROLLBACK");
 });
+
 afterAll(async () => {
   await db.end();
 });
@@ -48,7 +54,7 @@ describe("getByHelpRequestId", () => {
         error: { message },
       },
     } = await request(app)
-      .get("/api/help-requests/999/help-offers") // Assuming this ID doesn't exist
+      .get("/api/help-requests/999/help-offers")
       .expect(404);
     expect(message).toBe("Help request was not found");
   });
@@ -198,13 +204,13 @@ describe("getByHelperIdAndHelpRequestId", () => {
     const {
       body: { helpOffer },
     } = await request(app)
-      .get("/api/help-requests/1/help-offers/1")
-      .set("X-User-ID", "1")
+      .get("/api/help-requests/1/help-offers/2")
+      .set("X-User-ID", "2")
       .expect(200);
     expect(helpOffer).toMatchObject({
-      helper_id: 1,
+      helper_id: 2,
       help_request_id: 1,
-      status: "accepted",
+      status: "active",
     });
   });
   test("404 - GET: Responds with appropriate error when help request id provided", async () => {
@@ -267,8 +273,8 @@ describe("getByHelperIdAndHelpRequestId", () => {
 describe("removeHelpOffer", () => {
   test("204 - DELETE removes a help offer and responds with a 204", async () => {
     await request(app)
-      .delete("/api/help-requests/1/help-offers/1")
-      .set("X-User-ID", "1")
+      .delete("/api/help-requests/1/help-offers/2")
+      .set("X-User-ID", "2")
       .expect(204);
   });
   test("404 - DELETE returns not found if user does not exist", async () => {
@@ -289,7 +295,7 @@ describe("removeHelpOffer", () => {
       },
     } = await request(app)
       .delete("/api/help-requests/1/help-offers/999")
-      .set("X-User-ID", "1")
+      .set("X-User-ID", "999")
       .expect(404);
     expect(message).toBe("User was not found");
   });
@@ -299,8 +305,8 @@ describe("removeHelpOffer", () => {
         error: { message },
       },
     } = await request(app)
-      .delete("/api/help-requests/2/help-offers/3")
-      .set("X-User-ID", "3")
+      .delete("/api/help-requests/1/help-offers/1")
+      .set("X-User-ID", "1")
       .expect(404);
     expect(message).toBe("Help offer was not found");
   });
@@ -326,13 +332,13 @@ describe("updateHelpOffer", () => {
     const {
       body: { updatedHelpOffer },
     } = await request(app)
-      .patch("/api/help-requests/9/help-offers/8")
-      .set("X-User-ID", "9")
+      .patch("/api/help-requests/1/help-offers/2")
+      .set("X-User-ID", "2")
       .send(helpOfferBody)
       .expect(200);
     expect(updatedHelpOffer).toMatchObject({
-      helper_id: 8,
-      help_request_id: 9,
+      helper_id: 2,
+      help_request_id: 1,
       status: "active",
     });
   });
@@ -392,7 +398,7 @@ describe("updateHelpOffer", () => {
         error: { message },
       },
     } = await request(app)
-      .patch("/api/help-requests/9/help-offers/8")
+      .patch("/api/help-requests/1/help-offers/2")
       .set("X-User-ID", "10")
       .send(helpOfferBody)
       .expect(401);
@@ -413,5 +419,46 @@ describe("updateHelpOffer", () => {
       .send(helpOfferBody)
       .expect(404);
     expect(message).toBe("Help offer was not found");
+  });
+});
+
+describe("GET /api/help-offers", () => {
+  test("200: GET - returns all help offers with associated data", async () => {
+    const response = await request(app).get("/api/help-offers").expect(200);
+
+    expect(Array.isArray(response.body.helpOffers)).toBe(true);
+    expect(response.body.helpOffers).toHaveLength(6);
+
+    response.body.helpOffers.forEach((offer: any) => {
+      expect(offer).toMatchObject({
+        help_request_id: expect.any(Number),
+        helper_id: expect.any(Number),
+        offer_status: expect.any(String),
+        offer_created_at: expect.any(String),
+        title: expect.any(String),
+        description: expect.any(String),
+        request_created_at: expect.any(String),
+        req_date: expect.any(String),
+        request_status: expect.any(String),
+        help_type_id: expect.any(Number),
+        help_type_name: expect.any(String),
+        helper_first_name: expect.any(String),
+        helper_last_name: expect.any(String),
+        helper_postcode: expect.any(String),
+        helper_email: expect.any(String),
+        requester_first_name: expect.any(String),
+        requester_last_name: expect.any(String),
+        requester_postcode: expect.any(String),
+        requester_email: expect.any(String),
+      });
+    });
+
+    const createdDates = response.body.helpOffers.map(
+      (offer: any) => new Date(offer.offer_created_at)
+    );
+    const sortedDates = [...createdDates].sort(
+      (a, b) => b.getTime() - a.getTime()
+    );
+    expect(createdDates).toEqual(sortedDates);
   });
 });

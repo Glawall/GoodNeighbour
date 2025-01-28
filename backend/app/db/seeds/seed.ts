@@ -9,6 +9,7 @@ import * as bcrypt from "bcrypt";
 dotenv.config();
 
 const schemaFiles = [
+  "types.sql",
   "users.sql",
   "help_types.sql",
   "help_requests.sql",
@@ -19,12 +20,15 @@ const schemaFiles = [
 const createTables = async () => {
   try {
     await db.query(`
-            DROP TABLE IF EXISTS comments CASCADE;
-            DROP TABLE IF EXISTS help_offers CASCADE;
-            DROP TABLE IF EXISTS help_requests CASCADE;
-            DROP TABLE IF EXISTS help_types CASCADE;
-            DROP TABLE IF EXISTS users CASCADE;
-        `);
+      DROP TABLE IF EXISTS comments CASCADE;
+      DROP TABLE IF EXISTS help_offers CASCADE;
+      DROP TABLE IF EXISTS help_requests CASCADE;
+      DROP TABLE IF EXISTS help_types CASCADE;
+      DROP TABLE IF EXISTS users CASCADE;
+      
+      DROP TYPE IF EXISTS REQUEST_STATUS CASCADE;
+      DROP TYPE IF EXISTS OFFER_STATUS CASCADE;
+    `);
 
     for (const file of schemaFiles) {
       const filePath = path.join(`${__dirname}/../../db/schema`, file);
@@ -32,7 +36,8 @@ const createTables = async () => {
       await db.query(sql);
     }
   } catch (error) {
-    console.log(error);
+    console.error("Error creating tables:", error);
+    throw error;
   }
 };
 
@@ -134,12 +139,15 @@ const seed = async ({
     await db.query(insertHelpRequestsDataStr);
 
     const insertHelpOffersDataStr = format(
-      "INSERT INTO help_offers (helper_id, help_request_id, status) VALUES %L",
-      helpOffersData.map(({ helper_id, help_request_id, status }) => [
-        helper_id,
-        help_request_id,
-        status,
-      ])
+      "INSERT INTO help_offers (helper_id, help_request_id, status, created_at) VALUES %L",
+      helpOffersData.map(
+        ({ helper_id, help_request_id, status, created_at }) => [
+          helper_id,
+          help_request_id,
+          status,
+          created_at,
+        ]
+      )
     );
 
     await db.query(insertHelpOffersDataStr);
@@ -184,7 +192,8 @@ const seed = async ({
       await db.query(insertChildCommentsStr);
     }
   } catch (error) {
-    console.log(error);
+    console.error("Error in seed:", error);
+    throw error;
   }
 };
 

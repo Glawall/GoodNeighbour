@@ -4,3 +4,4 @@ export { getByUserId } from "./getByUserId";
 export { removeHelpOffer } from "./removeHelpOffer";
 export { updateHelpOffer } from "./updateHelpOffer";
 export { getByHelpRequestIdAndHelperId } from "./getbyHelpRequestIdAndHelperId";
+export { getAllHelpOffers } from "./getAllHelpOffers";

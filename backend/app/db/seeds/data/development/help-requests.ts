@@ -57,7 +57,7 @@ export const helpRequestsData: HelpRequest[] = [
   {
     title: "Help needed with yard work",
     author_id: 4,
-    help_type_id: 5,
+    help_type_id: 6,
     description:
       "I need someone to help me with yard work and gardening this weekend",
     created_at: "2024-05-19T08:20:45.678Z",
@@ -125,7 +125,7 @@ export const helpRequestsData: HelpRequest[] = [
   {
     title: "Assistance with gardening needed",
     author_id: 1,
-    help_type_id: 5,
+    help_type_id: 6,
     description: "I need help with weeding and planting flowers in my garden",
     created_at: "2024-05-22T10:45:12.789Z",
     req_date: "2024-05-26T09:00:00.000Z",
@@ -239,7 +239,7 @@ export const helpRequestsData: HelpRequest[] = [
   {
     title: "Gardening help needed",
     author_id: 5,
-    help_type_id: 5,
+    help_type_id: 6,
     description:
       "I need assistance with weeding and planting flowers in my garden this weekend.",
     created_at: "2024-05-24T12:30:00.000Z",
@@ -288,7 +288,7 @@ export const helpRequestsData: HelpRequest[] = [
   {
     title: "Gardening help with hedge trimming",
     author_id: 5,
-    help_type_id: 5,
+    help_type_id: 6,
     description:
       "I need assistance trimming my hedges and bushes this Saturday.",
     created_at: "2024-05-24T17:15:00.000Z",
@@ -337,7 +337,7 @@ export const helpRequestsData: HelpRequest[] = [
   {
     title: "Gardening help with lawn care",
     author_id: 10,
-    help_type_id: 5,
+    help_type_id: 6,
     description: "I need someone to help me mow the lawn and trim the edges.",
     created_at: "2024-05-24T22:30:00.000Z",
     req_date: "2024-05-26T16:00:00.000Z",
@@ -384,7 +384,7 @@ export const helpRequestsData: HelpRequest[] = [
   {
     title: "Gardening help for a flower bed",
     author_id: 15,
-    help_type_id: 5,
+    help_type_id: 6,
     description:
       "I need assistance with planting a new flower bed in my front yard.",
     created_at: "2024-05-25T03:00:00.000Z",

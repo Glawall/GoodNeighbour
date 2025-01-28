@@ -64,6 +64,7 @@ router.delete(
   "/api/help-requests/:help_request_id/help-offers/:helper_id",
   helpOffersController.removeHelpOffer
 );
+router.get("/api/help-offers", helpOffersController.getAllHelpOffers);
 
 // * Comments
 router.get(
