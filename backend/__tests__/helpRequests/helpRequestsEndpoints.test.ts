@@ -139,17 +139,13 @@ describe("getByHelpRequestId", () => {
   });
 });
 
-describe.only("getByUserId", () => {
+describe("getByUserId", () => {
   test("200 - GET: responds with help requests and their offers", async () => {
     const {
       body: { helpRequests },
     } = await request(app).get("/api/users/1/help-requests").expect(200);
-
-    // Check help requests structure
     expect(helpRequests).toHaveProperty("helpRequests");
     expect(helpRequests).toHaveProperty("helpOffers");
-
-    // Check help request properties
     helpRequests.helpRequests.forEach((helpRequest: HelpRequest) => {
       expect(helpRequest).toHaveProperty("id");
       expect(helpRequest).toHaveProperty("title");
@@ -162,7 +158,6 @@ describe.only("getByUserId", () => {
       expect(helpRequest).toHaveProperty("help_type_name");
     });
 
-    // Check help offer properties if any exist
     if (helpRequests.helpOffers.length > 0) {
       helpRequests.helpOffers.forEach((offer: any) => {
         expect(offer).toHaveProperty("help_request_id");

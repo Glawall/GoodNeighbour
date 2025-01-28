@@ -7,8 +7,7 @@ export const getByUserId = async (userId: number): Promise<any> => {
       help_types.name as help_type_name
     FROM help_requests
     JOIN help_types ON help_types.id = help_requests.help_type_id
-    WHERE help_requests.author_id = $1
-    ORDER BY help_requests.created_at DESC`,
+    WHERE help_requests.author_id = $1`,
     [userId]
   );
 
