@@ -29,4 +29,9 @@ export const typesData: HelpType[] = [
     description:
       "Tamdiu claustrum textilis usque architecto deporto sperno arma repellendus. Deficio ascit super dolorum copia. Pariatur concedo curo veritas.",
   },
+  {
+    name: "Gardening",
+    description:
+      "Tamdiu claustrum textilis usque architecto deporto sperno arma repellendus. Deficio ascit super dolorum copia. Pariatur concedo curo veritas.",
+  },
 ];
