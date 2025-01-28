@@ -140,12 +140,17 @@ describe("getByHelpRequestId", () => {
 });
 
 describe.only("getByUserId", () => {
-  test("200 - GET: responds with an array of help-request objects with offers and helper info", async () => {
+  test("200 - GET: responds with help requests and their offers", async () => {
     const {
       body: { helpRequests },
     } = await request(app).get("/api/users/1/help-requests").expect(200);
 
-    helpRequests.forEach((helpRequest: HelpRequest) => {
+    // Check help requests structure
+    expect(helpRequests).toHaveProperty("helpRequests");
+    expect(helpRequests).toHaveProperty("helpOffers");
+
+    // Check help request properties
+    helpRequests.helpRequests.forEach((helpRequest: HelpRequest) => {
       expect(helpRequest).toHaveProperty("id");
       expect(helpRequest).toHaveProperty("title");
       expect(helpRequest.author_id).toBe(1);
@@ -154,14 +159,21 @@ describe.only("getByUserId", () => {
       expect(helpRequest).toHaveProperty("created_at");
       expect(helpRequest).toHaveProperty("req_date");
       expect(helpRequest).toHaveProperty("status");
-      expect(helpRequest).toHaveProperty("help_request_id");
-      expect(helpRequest).toHaveProperty("offer_status");
-      expect(helpRequest).toHaveProperty("offer_created_at");
-      expect(helpRequest).toHaveProperty("helper_id");
-      expect(helpRequest).toHaveProperty("helper_username");
-      expect(helpRequest).toHaveProperty("helper_email");
-      expect(helpRequest).toHaveProperty("helper_avatar_url");
+      expect(helpRequest).toHaveProperty("help_type_name");
     });
+
+    // Check help offer properties if any exist
+    if (helpRequests.helpOffers.length > 0) {
+      helpRequests.helpOffers.forEach((offer: any) => {
+        expect(offer).toHaveProperty("help_request_id");
+        expect(offer).toHaveProperty("status");
+        expect(offer).toHaveProperty("created_at");
+        expect(offer).toHaveProperty("helper_id");
+        expect(offer).toHaveProperty("helper_username");
+        expect(offer).toHaveProperty("helper_email");
+        expect(offer).toHaveProperty("helper_avatar_url");
+      });
+    }
   });
 
   test("404 - GET: responds with an error when the user does not exist", async () => {
