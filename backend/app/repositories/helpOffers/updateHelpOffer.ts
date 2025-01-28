@@ -11,7 +11,7 @@ export const updateHelpOffer = async (
   const query = `
     UPDATE 
         help_offers 
-    SET status = $1 
+    SET status = $1::offer_status 
     WHERE helper_id = $2 
     AND help_request_id = $3 
     RETURNING helper_id, help_request_id, status`;
