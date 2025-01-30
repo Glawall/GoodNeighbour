@@ -33,7 +33,7 @@ export const getByHelpRequestId = async (id: number) => {
     phone_number: reqDetails.phone_number,
     address: reqDetails.address,
     longitude: reqDetails.longitude,
-    latitiude: reqDetails.latitude,
+    latitude: reqDetails.latitude,
   };
 
   const offersArr = helpRequestOffersRows.map((offer: any) => ({
