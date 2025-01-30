@@ -32,6 +32,8 @@ export const getByHelpRequestId = async (id: number) => {
     additional_contacts: reqDetails.additional_contacts,
     phone_number: reqDetails.phone_number,
     address: reqDetails.address,
+    longitude: reqDetails.longitude,
+    latitiude: reqDetails.latitude,
   };
 
   const offersArr = helpRequestOffersRows.map((offer: any) => ({
