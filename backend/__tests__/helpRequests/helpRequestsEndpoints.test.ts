@@ -8,7 +8,6 @@ import {
   HelpRequest,
   HelpRequestBody,
 } from "../../app/db/seeds/data/test/help-requests";
-import { getByUserId } from "../../app/services/helpRequests/getByUserId";
 
 beforeEach(async () => {
   await db.query("BEGIN");
@@ -49,17 +48,17 @@ describe("getAllHelpRequests", () => {
       expect(helpRequest).toHaveProperty("help_type");
     });
   });
-  test("200 - GET: responds with help requests sorted by 'created_at' by default", async () => {
+  test("200 - GET: responds with help requests sorted by 'req_date' by default", async () => {
     const {
       body: { helpRequests },
     } = await request(app).get("/api/help-requests").expect(200);
-    expect(helpRequests).toBeSortedBy("created_at", { descending: true });
+    expect(helpRequests).toBeSortedBy("req_date", { descending: true });
   });
-  test("200 - GET: responds with help requests sorted by 'created_at' ascending", async () => {
+  test("200 - GET: responds with help requests sorted by 'req_date' ascending", async () => {
     const {
       body: { helpRequests },
     } = await request(app).get("/api/help-requests?order=asc").expect(200);
-    expect(helpRequests).toBeSortedBy("created_at", { descending: false });
+    expect(helpRequests).toBeSortedBy("req_date", { descending: false });
   });
   test("200 - GET: responds with help requests sorted by 'author_username' in descending order", async () => {
     const {
@@ -119,6 +118,31 @@ describe("getByHelpRequestId", () => {
       status: "active",
       help_type_id: 1,
       name: "Shopping",
+    });
+    expect(helpRequest.offers).toEqual([
+      {
+        helper: {
+          additional_contacts: "I'm available most mornings",
+          address: "27 Belsize Road, London",
+          first_name: "Madeleine",
+          id: 2,
+          last_name: "McDermott",
+          phone_number: "07853 241698",
+          postcode: "NW6 4QG",
+        },
+        status: "active",
+      },
+    ]);
+    expect(helpRequest.requester).toMatchObject({
+      id: 1,
+      first_name: "Cuthbert",
+      last_name: "Wilkinson",
+      postcode: "W2 3QH",
+      additional_contacts: "Please call me in the afternoons",
+      phone_number: "07624 985321",
+      address: "14 Craven Terrace, London",
+      longitude: -0.1806,
+      latitiude: 51.5072,
     });
   });
   test("404 - GET: responds with an error if help request is not found", async () => {

@@ -5,7 +5,7 @@ import { AppError } from "../../errors/AppError";
 import { errors } from "../../errors/errors";
 
 export const getAllHelpRequests = async (
-  sort_by: string = "created_at",
+  sort_by: string = "req_date",
   order: string = "desc",
   help_type?: string
 ) => {
@@ -16,7 +16,7 @@ export const getAllHelpRequests = async (
     }
   }
 
-  const validSortColumns = ["author_username", "help_type", "created_at"];
+  const validSortColumns = ["author_username", "help_type", "req_date"];
   const validOrders = ["desc", "asc"];
 
   if (!validSortColumns.includes(sort_by)) {

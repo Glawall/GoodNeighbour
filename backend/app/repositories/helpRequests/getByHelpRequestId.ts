@@ -39,6 +39,8 @@ export const getByHelpRequestId = async (
         users.address,
         users.phone_number,
         users.additional_contacts,
+        users.longitude,
+        users.latitude,
 
         help_requests.author_id,
         help_requests.id AS help_request_id,

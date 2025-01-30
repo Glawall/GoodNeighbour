@@ -15,7 +15,7 @@ export const getAllHelpRequests = async (
 ) => {
   const { sort_by, order, help_type } = req.query;
 
-  const sortBy = sort_by || "created_at";
+  const sortBy = sort_by || "req_date";
   const orderBy = order || "desc";
   const helpType = help_type || "";
 
