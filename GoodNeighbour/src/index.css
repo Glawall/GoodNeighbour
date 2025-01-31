@@ -1,7 +1,11 @@
 :root {
   --primary-green: #73bf7e;
-  --light-green: #e8f5ea;
+  --light-green: #e6f2e6;
   --hover-green: #5da866;
+  --error-red: #dc3545;
+  --error-bg: #fee2e2;
+  --text-primary: #333;
+  --text-secondary: #666;
 }
 
 html,
@@ -11,7 +15,7 @@ body,
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -39,6 +43,8 @@ main {
   overflow-y: auto;
   margin-top: 0;
   padding-top: 0;
+  background-color: white;
+  padding-left: 2rem;
 }
 
 h1,
@@ -47,8 +53,25 @@ h3,
 h4,
 h5,
 h6 {
-  color: #343434;
+  color: #333;
   margin-bottom: 1rem;
+  width: fit-content;
+}
+
+h1.underline,
+h2.underline,
+h3.underline {
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-green);
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.section-heading {
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-green);
+  margin-bottom: 1rem;
+  width: fit-content;
 }
 
 p {
@@ -56,45 +79,56 @@ p {
   line-height: 1.6;
 }
 
-/* Common Button Styles */
 .btn {
-  background-color: #73bf7e;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 500;
   cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
   transition: all 0.2s ease;
+  border: 2px solid var(--primary-green);
+  background-color: white;
+  color: var(--primary-green);
 }
 
 .btn:hover {
-  background-color: #5da866;
-  transform: translateY(-1px);
-}
-
-.btn:active {
-  transform: translateY(0);
-}
-
-.btn:disabled {
-  background-color: #a8d4af;
-  cursor: not-allowed;
-}
-
-/* Button Variants */
-.btn-outline {
-  background-color: transparent;
-  border: 2px solid #73bf7e;
-  color: #73bf7e;
-}
-
-.btn-outline:hover {
-  background-color: #73bf7e;
+  background-color: var(--hover-green);
   color: white;
 }
 
+.btn-primary {
+  background-color: white;
+  color: var(--primary-green);
+  border: 2px solid var(--primary-green);
+}
+
+.btn-primary:hover {
+  background-color: var(--hover-green);
+  color: white;
+}
+
+.btn-outline {
+  background-color: white;
+  color: var(--primary-green);
+  border: 2px solid var(--primary-green);
+}
+
+.btn-outline:hover {
+  background-color: var(--hover-green);
+  color: white;
+}
+
+.btn-delete {
+  background-color: white;
+  color: var(--error-red);
+  border: 2px solid var(--error-red);
+}
+
+.btn-delete:hover {
+  background-color: var(--error-red);
+  color: white;
+}
+
+/* Button Variants */
 .btn-small {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
@@ -105,7 +139,118 @@ p {
   font-size: 1.125rem;
 }
 
-/* Form Elements */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(115, 191, 126, 0.2);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.error-message {
+  background-color: var(--error-bg);
+  color: var(--error-red);
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+.card-container {
+  margin: 0;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button {
+  background-color: white !important;
+  color: var(--error-red) !important;
+  border: 2px solid var(--error-red) !important;
+}
+
+.delete-button:hover {
+  background-color: var(--error-red) !important;
+  color: white !important;
+}
+
+/* Add to existing button styles */
+.edit-button {
+  background-color: white !important;
+  color: #ffd700 !important;
+  border: 2px solid #ffd700 !important;
+}
+
+.edit-button:hover {
+  background-color: #ffd700 !important;
+  color: white !important;
+}
+
+.status {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status.active {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status.accepted {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status.declined {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.status.agreed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status.completed {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.status.closed {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
 input,
 select,
 textarea {
@@ -124,213 +269,4 @@ textarea:focus {
   outline: none;
   border-color: #73bf7e;
   box-shadow: 0 0 0 3px rgba(115, 191, 126, 0.2);
-}
-
-.card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-a {
-  color: #73bf7e;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: #5da866;
-}
-
-.border {
-  border: 1px solid #d1d5db;
-}
-
-.border-green {
-  border: 1px solid #73bf7e;
-}
-
-.mt-1 {
-  margin-top: 0.5rem;
-}
-
-.mt-2 {
-  margin-top: 1rem;
-}
-
-.mt-3 {
-  margin-top: 1.5rem;
-}
-
-.mt-4 {
-  margin-top: 2rem;
-}
-
-.mb-1 {
-  margin-bottom: 0.5rem;
-}
-
-.mb-2 {
-  margin-bottom: 1rem;
-}
-
-.mb-3 {
-  margin-bottom: 1.5rem;
-}
-
-.mb-4 {
-  margin-bottom: 2rem;
-}
-
-.text-green {
-  color: #73bf7e;
-}
-
-.text-gray {
-  color: #343434;
-}
-
-.text-white {
-  color: white;
-}
-
-.bg-green {
-  background-color: #73bf7e;
-}
-
-.bg-light {
-  background-color: var(--light-green);
-}
-
-.bg-white {
-  background-color: white;
-}
-
-
-.title {
-  color: #343434;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  color: #343434;
-  font-weight: 500;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary-green);
-  box-shadow: 0 0 0 3px rgba(115, 191, 126, 0.2);
-}
-
-.form-group textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.submit-btn,
-.btn {
-  background-color: var(--primary-green);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.submit-btn:hover,
-.btn:hover {
-  background-color: var(--hover-green);
-}
-
-.error-message {
-  color: #dc3545;
-  background-color: #f8d7da;
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-}
-
-.card-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.delete-button {
-  background-color: #dc3545 !important;
-  color: white !important;
-}
-
-.delete-button:hover {
-  background-color: #bb2d3b !important;
-}
-
-/* Add to existing button styles */
-.edit-button {
-  background-color: #ffd700 !important;
-  /* Pale yellow */
-  color: #333 !important;
-}
-
-.edit-button:hover {
-  background-color: #e6c200 !important;
-}
-
-.status {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-transform: capitalize;
-}
-
-.status.active {
-  background-color: #fef3c7;
-  /* amber/yellow for active requests */
-  color: #92400e;
-}
-
-.status.agreed {
-  background-color: #d1fae5;
-  /* green for agreed requests */
-  color: #065f46;
-}
-
-.status.completed {
-  background-color: #e0e7ff;
-  /* indigo/blue for completed requests */
-  color: #3730a3;
-}
-
-.status.closed {
-  background-color: #f3f4f6;
-  /* gray for closed requests */
-  color: #4b5563;
 }

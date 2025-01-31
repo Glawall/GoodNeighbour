@@ -1,5 +1,7 @@
 .comments-section {
     background: white;
+    padding: 2rem;
+    scroll-margin-bottom: 20rem;
 }
 
 .comments-section h3 {
@@ -11,14 +13,17 @@
 .comments-list {
     display: flex;
     flex-direction: column;
+    margin-top: 2rem;
+    scroll-margin-bottom: 20rem;
 }
 
 .comment {
     background-color: white;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     padding: 1rem;
     border-radius: 8px;
     border-left: 3px solid var(--primary-green);
+    scroll-margin-bottom: 20rem;
 }
 
 .comments-list .comment.reply {
@@ -94,7 +99,7 @@
 }
 
 .comment-content {
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
 
 .comment-author {
@@ -119,4 +124,10 @@
     padding: 1rem;
     background-color: white;
     border-radius: 8px;
+}
+
+.replies-section {
+    margin-left: 2rem;
+    margin-top: 1rem;
+    scroll-margin-bottom: 20rem;
 }

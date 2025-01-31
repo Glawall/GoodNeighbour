@@ -34,7 +34,7 @@
 
 .map-container {
     flex: 0.4;
-    min-width: 400px;
+    min-width: 1400px;
     height: 100%;
     border-radius: 8px;
     overflow: hidden;
@@ -43,61 +43,24 @@
     top: 240px;
 }
 
-.filter-select {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-.filter-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-    padding: 0 2rem;
-}
 
 .sorting-options {
     display: flex;
-    gap: 15px;
+    gap: 1rem;
     align-items: center;
 }
 
-.select-container {
-    display: flex;
-    gap: 1rem;
-}
-
-.sort-button {
-    cursor: pointer;
-    color: white;
-    font-weight: 500;
-    padding: 8px 12px;
-    background-color: var(--primary-green);
-    border: none;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    font-size: 0.875rem;
-}
-
-.sort-button:hover,
-.sort-button.active {
-    background-color: var(--hover-green);
-}
-
-.sort-select {
-    background-color: #73bf7e;
-    border-radius: 6px;
-    padding: 8px 12px;
-    font-size: 0.875rem;
-    color: white;
-    border: none;
+.sorting-options select {
+    background-color: white;
+    color: var(--primary-green);
+    border: 2px solid var(--primary-green);
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
-.sort-select:hover {
+.sorting-options select:hover {
     background-color: #5da866;
+    color: white;
 }
 
 .help-type-links {
@@ -110,11 +73,11 @@
 
 .help-type-link {
     cursor: pointer;
-    color: white;
     font-weight: 500;
     padding: 8px 12px;
-    background-color: var(--primary-green);
-    border: none;
+    background-color: white;
+    color: var(--primary-green);
+    border: 2px solid var(--primary-green);
     border-radius: 6px;
     transition: all 0.2s ease;
     font-size: 0.875rem;
@@ -122,19 +85,14 @@
 
 .help-type-link:hover {
     background-color: var(--hover-green);
+    color: white;
 }
 
 .help-type-link.active,
 .sort-button.active {
-    background-color: var(--hover-green);
+    background-color: var(--primary-green);
     color: white;
-    border: 2px solid #333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.help-type-link.active:hover,
-.sort-button.active:hover {
-    background-color: var(--hover-green);
 }
 
 .error-message {
@@ -143,12 +101,6 @@
     padding: 1rem;
     border-radius: 6px;
     margin-top: 1rem;
-}
-
-.loading-message {
-    text-align: center;
-    color: #4b5563;
-    padding: 1rem;
 }
 
 .help-request-card {
@@ -182,4 +134,19 @@
     .map-container {
         height: 300px;
     }
+}
+
+.distance-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-right: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid #ddd;
+}
+
+.distance {
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
 }

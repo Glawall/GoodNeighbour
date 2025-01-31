@@ -2,6 +2,17 @@ import { useCallback } from "react";
 import api from "../utils/api-client";
 
 export function useUser() {
+  const createUser = useCallback(async (userData) => {
+    try {
+      const response = await api.post("/users", userData);
+      return response.data.user;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Failed to create user account"
+      );
+    }
+  }, []);
+
   const getUser = useCallback(async (userId) => {
     try {
       const response = await api.get(`/users/${userId}`, {
@@ -11,7 +22,9 @@ export function useUser() {
       });
       return response.data.user;
     } catch (error) {
-      throw new Error(error.response?.data?.message || "Failed to fetch user");
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch user details"
+      );
     }
   }, []);
 
@@ -25,12 +38,30 @@ export function useUser() {
       });
       return response.data.updatedUser;
     } catch (error) {
-      throw new Error(error.response?.data?.message || "Failed to update user");
+      throw new Error(
+        error.response?.data?.message || "Failed to update user details"
+      );
+    }
+  }, []);
+
+  const deleteUser = useCallback(async (userId) => {
+    try {
+      await api.delete(`/users/${userId}`, {
+        headers: {
+          "X-User-ID": userId,
+        },
+      });
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Failed to delete user account"
+      );
     }
   }, []);
 
   return {
+    createUser,
     getUser,
     updateUser,
+    deleteUser,
   };
 }

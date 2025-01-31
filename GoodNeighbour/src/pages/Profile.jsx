@@ -3,11 +3,13 @@ import { useAuth } from "../context/AuthProvider";
 import { useUser } from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
 import ConfirmBox from "../common/ConfirmBox";
+import FormInput from "../common/FormInput";
+import LoadingSpinner from "../common/LoadingSpinner";
 import "../styling/Profile.css";
 
 const Profile = () => {
-  const { user } = useAuth();
-  const { updateUser, getUser } = useUser();
+  const { user, logout } = useAuth();
+  const { updateUser, getUser, deleteUser } = useUser();
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState(null);
@@ -16,6 +18,17 @@ const Profile = () => {
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     changes: null,
+  });
+  const [deleteConfirmDialog, setDeleteConfirmDialog] = useState(false);
+  const [form, setForm] = useState({
+    first_name: "",
+    last_name: "",
+    postcode: "",
+    email: "",
+    additional_contacts: "",
+    about: "",
+    avatar_url: "",
+    phone: "",
   });
 
   useEffect(() => {
@@ -26,6 +39,16 @@ const Profile = () => {
       try {
         const data = await getUser(user.id);
         setProfileData(data);
+        setForm({
+          first_name: data.first_name || "",
+          last_name: data.last_name || "",
+          postcode: data.postcode || "",
+          email: data.email || "",
+          additional_contacts: data.additional_contacts || "",
+          about: data.about || "",
+          avatar_url: data.avatar_url || "",
+          phone: data.phone || "",
+        });
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -37,25 +60,23 @@ const Profile = () => {
     fetchProfile();
   }, [getUser, user?.id]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const updateData = {
-      email: formData.get("email"),
-      avatar_url: formData.get("avatar_url"),
-      about: formData.get("about"),
-      address: formData.get("address"),
-      postcode: formData.get("postcode"),
-      phone_number: formData.get("phone_number"),
-      additional_contacts: formData.get("additional_contacts"),
-      help_radius: formData.get("help_radius"),
-    };
-
-    setConfirmDialog({
-      isOpen: true,
-      changes: updateData,
-    });
-    navigate("/profile");
+    try {
+      await updateUser(user.id, form);
+      setProfileData(form);
+      setIsEditing(false);
+    } catch (err) {
+      console.error("Failed to update profile:", err);
+    }
   };
 
   const handleConfirmSave = async () => {
@@ -69,7 +90,21 @@ const Profile = () => {
     }
   };
 
-  if (isLoading) return <div className="loading">Loading profile...</div>;
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteUser(user.id);
+      logout();
+      navigate("/login", {
+        state: { message: "Your account has been successfully deleted." },
+      });
+    } catch (err) {
+      setError("Failed to delete account: " + err.message);
+    } finally {
+      setDeleteConfirmDialog(false);
+    }
+  };
+
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <div className="error">Error loading profile: {error}</div>;
   if (!profileData)
     return <div className="no-data">No profile data available</div>;
@@ -79,15 +114,123 @@ const Profile = () => {
       <div className="card-container profile-container">
         <div className="profile-header">
           <h2>{isEditing ? "Edit Profile" : "My Profile"}</h2>
-          <button
-            className="btn edit-button"
-            onClick={() => setIsEditing(!isEditing)}
-          >
-            {isEditing ? "Cancel" : "Edit Profile"}
-          </button>
+          <div className="profile-actions">
+            <button
+              className={`btn ${isEditing ? "delete-button" : "edit-button"}`}
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              {isEditing ? "Cancel" : "Edit Profile"}
+            </button>
+            <button
+              className="btn delete-button"
+              onClick={() => setDeleteConfirmDialog(true)}
+            >
+              Delete Account
+            </button>
+          </div>
         </div>
 
-        {!isEditing ? (
+        {isEditing ? (
+          <form onSubmit={handleSubmit} className="edit-form">
+            <div className="form-section">
+              <FormInput
+                label="Email"
+                type="email"
+                id="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+              />
+
+              <FormInput
+                label="Avatar URL"
+                type="url"
+                id="avatar_url"
+                name="avatar_url"
+                value={form.avatar_url}
+                onChange={handleChange}
+              />
+
+              <FormInput
+                label="About"
+                type="textarea"
+                id="about"
+                name="about"
+                value={form.about}
+                onChange={handleChange}
+              />
+
+              <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={form.address || ""}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="postcode">Postcode</label>
+                <input
+                  type="text"
+                  id="postcode"
+                  name="postcode"
+                  value={form.postcode}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phone_number">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone_number"
+                  name="phone_number"
+                  value={form.phone}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="additional_contacts">Additional Contacts</label>
+                <textarea
+                  id="additional_contacts"
+                  name="additional_contacts"
+                  value={form.additional_contacts}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="help_radius">Help Radius (km)</label>
+                <input
+                  type="number"
+                  id="help_radius"
+                  name="help_radius"
+                  value={form.help_radius || ""}
+                  onChange={handleChange}
+                  min="0"
+                  step="1"
+                />
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button type="submit" className="btn">
+                Save Changes
+              </button>
+              <button
+                type="button"
+                className="btn delete-button"
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
           <div className="profile-content">
             <div className="content-section">
               <div className="info-grid">
@@ -138,103 +281,6 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="edit-form">
-            <div className="form-section">
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  defaultValue={profileData.email}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="avatar_url">Avatar URL</label>
-                <input
-                  type="url"
-                  id="avatar_url"
-                  name="avatar_url"
-                  defaultValue={profileData.avatar_url}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="about">About</label>
-                <textarea
-                  id="about"
-                  name="about"
-                  defaultValue={profileData.about}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="address">Address</label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  defaultValue={profileData.address}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="postcode">Postcode</label>
-                <input
-                  type="text"
-                  id="postcode"
-                  name="postcode"
-                  defaultValue={profileData.postcode}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="phone_number">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone_number"
-                  name="phone_number"
-                  defaultValue={profileData.phone_number}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="additional_contacts">Additional Contacts</label>
-                <textarea
-                  id="additional_contacts"
-                  name="additional_contacts"
-                  defaultValue={profileData.additional_contacts}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="help_radius">Help Radius (km)</label>
-                <input
-                  type="number"
-                  id="help_radius"
-                  name="help_radius"
-                  defaultValue={profileData.help_radius}
-                  min="0"
-                  step="1"
-                />
-              </div>
-            </div>
-
-            <div className="form-actions">
-              <button type="submit" className="btn save-button">
-                Save Changes
-              </button>
-              <button
-                type="button"
-                className="btn delete-button"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
         )}
       </div>
       <ConfirmBox
@@ -242,6 +288,14 @@ const Profile = () => {
         message="Are you sure you want to save these changes to your profile?"
         onConfirm={handleConfirmSave}
         onCancel={() => setConfirmDialog({ isOpen: false, changes: null })}
+      />
+      <ConfirmBox
+        isOpen={deleteConfirmDialog}
+        message="Are you sure you want to delete your account? This action cannot be undone."
+        onConfirm={handleDeleteAccount}
+        onCancel={() => setDeleteConfirmDialog(false)}
+        type="delete"
+        confirmText="Delete Account"
       />
     </div>
   );

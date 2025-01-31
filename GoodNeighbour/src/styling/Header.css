@@ -1,6 +1,5 @@
 .header {
-    background-color: white;
-    border-bottom: 2px solid #73bf7e;
+    background-color: var(--light-green);
     position: sticky;
     top: 0;
     width: 100vw;
@@ -8,7 +7,16 @@
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     position: relative;
-    padding-top: 1rem;
+    border: none;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    height: 160px;
+    background-color: var(--light-green);
 }
 
 .nav-title {
@@ -16,48 +24,45 @@
 }
 
 .nav-links {
-    position: absolute;
-    bottom: 1rem;
-    left: 3rem;
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
+    justify-content: flex-start;
+    padding: 1rem 2rem;
+    background-color: var(--light-green);
+}
+
+.nav-link {
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: white;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: var(--hover-green);
+    color: white;
+}
+
+.nav-link.active {
+    background-color: var(--primary-green);
+    color: white;
 }
 
 .profile-section {
-    position: absolute;
-    bottom: 1rem;
-    right: 2rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.15rem;
-    padding-top: 0.75rem;
+    gap: 1rem;
 }
 
-/* Button styles */
-.nav-link,
-.logout-btn {
-    cursor: pointer;
-    color: white;
-    font-weight: 500;
-    padding: 10px 20px;
-    background-color: #73bf7e;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-    text-decoration: none;
-    border: none;
-}
 
-.nav-link:hover,
-.logout-btn:hover {
-    background-color: #5da866;
-}
+
 
 .profile-section a {
     display: block;
     line-height: 0;
-    /* Remove extra space below image */
     cursor: pointer;
 }
 
@@ -66,31 +71,23 @@
     height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #73bf7e;
     margin-bottom: 0.5em;
     transition: border-color 0.2s ease;
 }
 
 .profile-section a:hover .user-avatar {
-    border-color: #5da866;
+    border: 3px solid #73bf7e;
 }
 
 .username-text {
     font-size: 0.9rem;
-    color: #343434;
+    color: var(--primary-green);
     margin: 0;
-}
-
-.logo-link {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-decoration: none;
 }
 
 .nav-logo {
     height: 160px;
     width: auto;
     object-fit: contain;
+    opacity: 1;
 }

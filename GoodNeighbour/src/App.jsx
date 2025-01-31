@@ -7,7 +7,9 @@ import HelpRequests from "./pages/HelpRequests";
 import HelpRequest from "./pages/HelpRequest";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
-import HelpOffers from "./pages/HelpOffers";
+import MyHelpOffers from "./pages/MyHelpOffers";
+import MyHelpRequests from "./pages/MyHelpRequests";
+import CreateHelpRequest from "./pages/CreateHelpRequest";
 
 const PrivateRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
@@ -87,7 +89,23 @@ const App = () => {
             path="/help-offers"
             element={
               <PrivateRoute>
-                <HelpOffers />
+                <MyHelpOffers />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/my-help-requests"
+            element={
+              <PrivateRoute>
+                <MyHelpRequests />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/help-requests/create"
+            element={
+              <PrivateRoute>
+                <CreateHelpRequest />
               </PrivateRoute>
             }
           />
