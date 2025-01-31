@@ -10,6 +10,7 @@
     "deploy": "gh-pages -d dist",
     "preview": "vite preview --host"
   },
+  "homepage": "https://Glawall.github.io/GoodNeighbour",
   "dependencies": {
     "@react-google-maps/api": "^2.20.3",
     "axios": "^1.7.9",
