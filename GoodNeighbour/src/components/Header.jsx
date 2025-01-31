@@ -25,7 +25,11 @@ const Header = () => {
     <header className="header">
       <div className="header-top">
         <Link to="/" className="logo-link">
-          <img src="/Logo.png" alt="Good Neighbour" className="nav-logo" />
+          <img
+            src={`${import.meta.env.BASE_URL}Logo.png`}
+            alt="Good Neighbour"
+            className="nav-logo"
+          />
         </Link>
 
         <div className="profile-section">

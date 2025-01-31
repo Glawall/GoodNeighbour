@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const baseURL =
-  import.meta.env.VITE_API_URL || "https://goodneighbour.onrender.com/api";
+const isDevelopment = import.meta.env.MODE === "development";
+
+const baseURL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL,
@@ -20,26 +21,33 @@ api.interceptors.request.use(
       config.headers["X-User-ID"] = id;
     }
 
-    console.log("🚀 Request:", {
-      method: config.method?.toUpperCase(),
-      url: config.url,
-      data: config.data,
-      headers: config.headers,
-    });
+    if (isDevelopment) {
+      console.log("Request:", {
+        url: config.url,
+        method: config.method,
+        headers: config.headers,
+        data: config.data,
+      });
+    }
     return config;
   },
   (error) => {
-    console.error("❌ Request Error:", error);
+    if (isDevelopment) {
+      console.error("Request error:", error);
+    }
     return Promise.reject(error);
   }
 );
 
 api.interceptors.response.use(
   (response) => {
-    console.log("✅ Response:", {
-      status: response.status,
-      data: response.data,
-    });
+    if (isDevelopment) {
+      console.log("Response success:", {
+        url: response.config.url,
+        status: response.status,
+        data: response.data,
+      });
+    }
     return response;
   },
   (error) => {
@@ -47,11 +55,15 @@ api.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.href = "/login";
     }
-    console.error("❌ Response Error:", {
-      status: error.response?.status,
-      data: error.response?.data,
-      message: error.message,
-    });
+    if (isDevelopment) {
+      console.error("Response error:", {
+        url: error.config?.url,
+        method: error.config?.method,
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
+    }
     return Promise.reject(error);
   }
 );
