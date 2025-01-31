@@ -52,7 +52,7 @@ const SignUp = () => {
     <div className="auth-container">
       <div className="auth-logo">
         <img
-          src={`${import.meta.env.BASE_URL}Logo.png`}
+          src={process.env.PUBLIC_URL + "/Logo.png"}
           alt="Good Neighbour"
           className="nav-logo"
         />

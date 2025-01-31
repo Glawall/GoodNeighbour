@@ -26,7 +26,7 @@ const Header = () => {
       <div className="header-top">
         <Link to="/" className="logo-link">
           <img
-            src={`${import.meta.env.BASE_URL}Logo.png`}
+            src={process.env.PUBLIC_URL + "/Logo.png"}
             alt="Good Neighbour"
             className="nav-logo"
           />
