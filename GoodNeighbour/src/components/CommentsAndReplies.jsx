@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { useComments } from "../hooks/useComments";
 import Comment from "./Comment";
+import ConfirmBox from "../common/ConfirmBox";
 import "../styling/CommentsAndReplies.css";
 
 const CommentsAndReplies = ({ comments, helpRequestId, onCommentUpdate }) => {
@@ -10,6 +11,10 @@ const CommentsAndReplies = ({ comments, helpRequestId, onCommentUpdate }) => {
     useComments(helpRequestId);
   const [newComment, setNewComment] = useState("");
   const [error, setError] = useState(null);
+  const [deleteConfirmDialog, setDeleteConfirmDialog] = useState({
+    isOpen: false,
+    commentId: null,
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,9 +28,17 @@ const CommentsAndReplies = ({ comments, helpRequestId, onCommentUpdate }) => {
       });
       setNewComment("");
       onCommentUpdate();
-      setError(null);
+      const commentsSection = document.querySelector(".comments-section");
+      if (commentsSection) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: commentsSection.offsetTop + commentsSection.scrollHeight,
+            behavior: "smooth",
+          });
+        }, 100);
+      }
     } catch (err) {
-      setError("Failed to add comment");
+      console.error("Failed to add comment:", err);
     }
   };
 
@@ -37,19 +50,38 @@ const CommentsAndReplies = ({ comments, helpRequestId, onCommentUpdate }) => {
         help_request_id: helpRequestId,
       });
       onCommentUpdate();
-      setError(null);
+      setTimeout(() => {
+        const replySection = document.querySelector(
+          `#comment-${replyData.parent_id} .replies-section`
+        );
+        if (replySection) {
+          window.scrollTo({
+            top: replySection.offsetTop + 200,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
     } catch (err) {
-      setError("Failed to add reply");
+      console.error("Failed to add reply:", err);
     }
   };
 
-  const handleDelete = async (commentId) => {
+  const handleDeleteClick = (commentId) => {
+    setDeleteConfirmDialog({
+      isOpen: true,
+      commentId,
+    });
+  };
+
+  const handleConfirmDelete = async () => {
     try {
-      await deleteComment(commentId);
+      await deleteComment(deleteConfirmDialog.commentId);
       onCommentUpdate();
       setError(null);
     } catch (err) {
       setError("Failed to delete comment");
+    } finally {
+      setDeleteConfirmDialog({ isOpen: false, commentId: null });
     }
   };
 
@@ -104,7 +136,7 @@ const CommentsAndReplies = ({ comments, helpRequestId, onCommentUpdate }) => {
               key={comment.id}
               comment={comment}
               onReply={handleReply}
-              onDelete={handleDelete}
+              onDelete={handleDeleteClick}
               onUpdate={handleUpdate}
               userId={user?.id}
             />
@@ -113,6 +145,15 @@ const CommentsAndReplies = ({ comments, helpRequestId, onCommentUpdate }) => {
           <p>No comments available</p>
         )}
       </div>
+
+      <ConfirmBox
+        isOpen={deleteConfirmDialog.isOpen}
+        message="Are you sure you want to delete this comment? This cannot be undone."
+        onConfirm={handleConfirmDelete}
+        onCancel={() =>
+          setDeleteConfirmDialog({ isOpen: false, commentId: null })
+        }
+      />
     </div>
   );
 };

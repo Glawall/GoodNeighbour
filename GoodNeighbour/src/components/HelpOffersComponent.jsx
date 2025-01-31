@@ -7,11 +7,14 @@ const HelpOffers = ({
   offers,
   helpRequestId,
   requestAuthorId,
+  onUpdate,
   onAcceptOffer,
+  onWithdraw,
 }) => {
   const { user } = useAuth();
   const { updateHelpOffer, deleteHelpOffer } = useHelpOffers();
   const [currentOffers, setCurrentOffers] = useState(offers);
+  const [isWithdrawing, setIsWithdrawing] = useState(false);
 
   useEffect(() => {
     setCurrentOffers(offers);
@@ -24,23 +27,32 @@ const HelpOffers = ({
     }
     try {
       await updateHelpOffer(helpRequestId, helperId, { status: newStatus });
-      const updatedOffers = currentOffers.map((offer) =>
-        offer.helper.id === helperId ? { ...offer, status: newStatus } : offer
+      setCurrentOffers(
+        currentOffers.map((offer) =>
+          offer.helper.id === helperId ? { ...offer, status: newStatus } : offer
+        )
       );
-      setCurrentOffers(updatedOffers);
+      onUpdate?.();
     } catch (err) {
       console.error("Failed to update offer status:", err);
     }
   };
 
   const handleWithdrawOffer = async (helpRequestId, helperId) => {
+    setIsWithdrawing(true);
     try {
       await deleteHelpOffer(helpRequestId, helperId);
       setCurrentOffers(
         currentOffers.filter((offer) => offer.helper.id !== helperId)
       );
+      onUpdate?.();
+      if (onWithdraw) {
+        onWithdraw();
+      }
     } catch (err) {
       console.error("Failed to withdraw offer:", err);
+    } finally {
+      setIsWithdrawing(false);
     }
   };
 
@@ -61,9 +73,7 @@ const HelpOffers = ({
                 {user.id === requestAuthorId ? (
                   <div className="offer-status">
                     <button
-                      className={`status-btn ${
-                        offer.status === "accepted" ? "active" : "not-selected"
-                      }`}
+                      className="btn"
                       onClick={() =>
                         handleStatusUpdate(
                           helpRequestId,
@@ -75,9 +85,19 @@ const HelpOffers = ({
                       Accept
                     </button>
                     <button
-                      className={`status-btn ${
-                        offer.status === "declined" ? "active" : "not-selected"
-                      }`}
+                      className="edit-button"
+                      onClick={() =>
+                        handleStatusUpdate(
+                          helpRequestId,
+                          offer.helper.id,
+                          "active"
+                        )
+                      }
+                    >
+                      Pending
+                    </button>
+                    <button
+                      className="delete-button"
                       onClick={() =>
                         handleStatusUpdate(
                           helpRequestId,
@@ -88,41 +108,24 @@ const HelpOffers = ({
                     >
                       Decline
                     </button>
-                    <button
-                      className={`status-btn ${
-                        offer.status === "active" ? "active" : "not-selected"
-                      }`}
-                      onClick={() =>
-                        handleStatusUpdate(
-                          helpRequestId,
-                          offer.helper.id,
-                          "active"
-                        )
-                      }
-                    >
-                      Active
-                    </button>
                   </div>
                 ) : user.id === offer.helper.id ? (
                   <div className="offer-actions">
-                    <p className={`status ${offer.status}`}>
-                      Status: {offer.status}
-                    </p>
+                    <p className={`status ${offer.status}`}>{offer.status}</p>
                     {offer.status === "active" && (
                       <button
-                        className="delete-btn"
+                        className="btn delete-button"
                         onClick={() =>
                           handleWithdrawOffer(helpRequestId, offer.helper.id)
                         }
+                        disabled={isWithdrawing}
                       >
-                        Withdraw Offer
+                        {isWithdrawing ? "Withdrawing..." : "Withdraw Offer"}
                       </button>
                     )}
                   </div>
                 ) : (
-                  <p className={`status ${offer.status}`}>
-                    Status: {offer.status}
-                  </p>
+                  <p className={`status ${offer.status}`}>{offer.status}</p>
                 )}
               </div>
             </div>

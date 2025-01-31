@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
+import FormInput from "../common/FormInput";
+import LoadingSpinner from "../common/LoadingSpinner";
 import "../styling/SignUp.css";
 
 const SignUp = () => {
@@ -15,18 +17,26 @@ const SignUp = () => {
     address: "",
     postcode: "",
     phone_number: "",
-    help_radius: 5,
+    help_radius: 500,
     additional_contacts: "",
   });
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
+      setError(null);
       await createUser(formData);
-      navigate("/login");
+      navigate("/login", {
+        state: { message: "Account created successfully! Please log in." },
+      });
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Failed to create account. Please try again.");
+      console.error("Signup error:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,134 +49,117 @@ const SignUp = () => {
   };
 
   return (
-    <div className="card-container signup-container">
-      <h2 className="title">Create Account</h2>
+    <div className="auth-container">
+      <div className="auth-logo">
+        <img src="/Logo.png" alt="Good Neighbour" className="nav-logo" />
+      </div>
+      <div className="auth-header">
+        <Link to="/login" className="return-link">
+          Return to Login
+        </Link>
+        <h2 className="title">Create Account</h2>
+      </div>
       {error && <div className="error-message">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="signup-form">
-        <div className="form-group">
-          <label htmlFor="username">Username*</label>
-          <input
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <form onSubmit={handleSubmit} className="signup-form">
+          <FormInput
+            label="Username*"
             type="text"
             id="username"
-            name="username"
             value={formData.username}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email*</label>
-          <input
+          <FormInput
+            label="Email*"
             type="email"
             id="email"
-            name="email"
             value={formData.email}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password*</label>
-          <input
+          <FormInput
+            label="Password*"
             type="password"
             id="password"
-            name="password"
             value={formData.password}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="first_name">First Name*</label>
-          <input
+          <FormInput
+            label="First Name*"
             type="text"
             id="first_name"
-            name="first_name"
             value={formData.first_name}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="last_name">Last Name*</label>
-          <input
+          <FormInput
+            label="Last Name*"
             type="text"
             id="last_name"
-            name="last_name"
             value={formData.last_name}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="address">Address*</label>
-          <input
+          <FormInput
+            label="Address*"
             type="text"
             id="address"
-            name="address"
             value={formData.address}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="postcode">Postcode*</label>
-          <input
+          <FormInput
+            label="Postcode*"
             type="text"
             id="postcode"
-            name="postcode"
             value={formData.postcode}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="phone_number">Phone Number</label>
-          <input
+          <FormInput
+            label="Phone Number"
             type="tel"
             id="phone_number"
-            name="phone_number"
             value={formData.phone_number}
             onChange={handleChange}
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="help_radius">Help Radius (km)*</label>
-          <input
+          <FormInput
+            label="Help Radius (m)*"
             type="number"
             id="help_radius"
-            name="help_radius"
             value={formData.help_radius}
             onChange={handleChange}
             min="1"
-            max="50"
+            max="1000"
             required
           />
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="additional_contacts">Additional Contacts</label>
-          <textarea
+          <FormInput
+            label="Additional Contacts"
+            type="textarea"
             id="additional_contacts"
-            name="additional_contacts"
             value={formData.additional_contacts}
             onChange={handleChange}
           />
-        </div>
 
-        <button type="submit" className="btn">
-          Create Account
-        </button>
-      </form>
+          <button type="submit" className="btn">
+            Create Account
+          </button>
+        </form>
+      )}
     </div>
   );
 };

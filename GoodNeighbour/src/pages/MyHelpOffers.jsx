@@ -4,10 +4,13 @@ import { useHelpOffers } from "../hooks/useHelpOffers";
 import { useHelpRequests } from "../hooks/useHelpRequests";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../utils/DateFormatting";
-import "../styling/HelpOffers.css";
+import "../styling/MyHelpOffers.css";
 import ConfirmBox from "../common/ConfirmBox";
+import LoadingSpinner from "../common/LoadingSpinner";
+import StatusBadge from "../common/StatusBadge";
+import { Link } from "react-router-dom";
 
-const HelpOffers = () => {
+const MyHelpOffers = () => {
   const { user } = useAuth();
   const { getByUserId, updateHelpOffer, deleteHelpOffer } = useHelpOffers();
   const { getByUserId: getHelpRequestsByUserId } = useHelpRequests();
@@ -17,28 +20,43 @@ const HelpOffers = () => {
   const [viewMode, setViewMode] = useState("myOffers");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isWithdrawing, setIsWithdrawing] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     requestId: null,
     helperId: null,
   });
 
+  const handleWithdrawOffer = async (helpRequestId) => {
+    setIsWithdrawing(true);
+    try {
+      await deleteHelpOffer(helpRequestId, user.id);
+      fetchData();
+    } catch (err) {
+      setError("Failed to withdraw offer");
+    } finally {
+      setIsWithdrawing(false);
+    }
+  };
+
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       if (viewMode === "myOffers") {
         const data = await getByUserId(user.id);
-        setMyOffers(data.userHelpOffers || []);
+        setMyOffers(data.data.userHelpOffers || []);
         setMyRequests([]);
       } else {
         const data = await getHelpRequestsByUserId(user.id);
 
-        const requestsWithOffers = data.helpRequests.map((request) => ({
-          ...request,
-          offers: data.helpOffers
-            .filter((offer) => offer.help_request_id === request.id)
-            .sort((a, b) => new Date(a.created_at) - new Date(b.created_at)),
-        }));
+        const requestsWithOffers = data.data.helpRequests.helpRequests.map(
+          (request) => ({
+            ...request,
+            offers: data.data.helpRequests.helpOffers
+              .filter((offer) => offer.help_request_id === request.id)
+              .sort((a, b) => new Date(a.created_at) - new Date(b.created_at)),
+          })
+        );
 
         setMyRequests(requestsWithOffers);
         setMyOffers([]);
@@ -90,7 +108,7 @@ const HelpOffers = () => {
     }
   };
 
-  if (loading) return <div>Loading help offers...</div>;
+  if (loading) return <LoadingSpinner size="large" />;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -121,42 +139,40 @@ const HelpOffers = () => {
                 key={`${helpOffer.request.id}-${user.id}`}
                 className="offer-card"
               >
-                <h3>{helpOffer.request.title}</h3>
-                <p className="description">{helpOffer.request.description}</p>
-                <p className="requester">
-                  Requested by: {helpOffer.requester.first_name}{" "}
-                  {helpOffer.requester.last_name}
-                </p>
-                <p className="location">
-                  Location: {helpOffer.requester.postcode}
-                </p>
-                <p className="help-type">Type: {helpOffer.request.help_type}</p>
-                <p className="date">
-                  Date Needed: {formatDate(helpOffer.request.req_date)}
-                </p>
-                <p className={`status ${helpOffer.offers[0].status}`}>
-                  {helpOffer.offers[0].status}
-                </p>
-                <div className="button-container">
-                  <button
-                    className="view-details-btn"
-                    onClick={() =>
-                      navigate(`/help-requests/${helpOffer.request.id}`)
-                    }
-                  >
-                    View Details
-                  </button>
+                <div className="offer-card-content">
+                  <h3>{helpOffer.request.title}</h3>
+                  <StatusBadge status={helpOffer.offers[0].status} />
+                  <p className="offer-description">
+                    {helpOffer.request.description}
+                  </p>
+                  <p className="offer-date">
+                    Requested for: {formatDate(helpOffer.request.req_date)}
+                  </p>
                 </div>
-                {helpOffer.offers[0].status === "active" && (
-                  <button
-                    className="delete-btn"
-                    onClick={() =>
-                      handleDeleteOffer(helpOffer.request.id, user.id)
-                    }
+                <div className="offer-card-actions">
+                  <Link
+                    to={`/help-requests/${helpOffer.request.id}`}
+                    className="view-details-btn"
                   >
-                    Withdraw Offer
-                  </button>
-                )}
+                    View Details & Comments
+                  </Link>
+                  <div className="offer-actions">
+                    <p className={`status ${helpOffer.offers[0].status}`}>
+                      {helpOffer.offers[0].status}
+                    </p>
+                    {helpOffer.offers[0].status === "active" && (
+                      <button
+                        className="btn delete-button"
+                        onClick={() =>
+                          handleWithdrawOffer(helpOffer.request.id)
+                        }
+                        disabled={isWithdrawing}
+                      >
+                        {isWithdrawing ? "Withdrawing..." : "Withdraw Offer"}
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -168,14 +184,12 @@ const HelpOffers = () => {
               <div key={request.id} className="request-card">
                 <div className="request-summary">
                   <h3>{request.title}</h3>
-                  <p className="date">
-                    Help Neeeded: {formatDate(request.created_at)}
-                  </p>
+                  <p className="date">{formatDate(request.created_at)}</p>
                   <button
                     className="view-details-btn"
                     onClick={() => navigate(`/help-requests/${request.id}`)}
                   >
-                    View Details
+                    View Details & Comments
                   </button>
                 </div>
 
@@ -196,11 +210,7 @@ const HelpOffers = () => {
                         </div>
                         <div className="offer-status">
                           <button
-                            className={`status-btn ${
-                              offer.status === "accepted"
-                                ? "active"
-                                : "not-selected"
-                            }`}
+                            className="btn"
                             onClick={() =>
                               handleStatusUpdate(
                                 request.id,
@@ -212,11 +222,19 @@ const HelpOffers = () => {
                             Accept
                           </button>
                           <button
-                            className={`status-btn ${
-                              offer.status === "declined"
-                                ? "active"
-                                : "not-selected"
-                            }`}
+                            className="edit-button"
+                            onClick={() =>
+                              handleStatusUpdate(
+                                request.id,
+                                offer.helper_id,
+                                "active"
+                              )
+                            }
+                          >
+                            Pending
+                          </button>
+                          <button
+                            className="delete-button"
                             onClick={() =>
                               handleStatusUpdate(
                                 request.id,
@@ -226,22 +244,6 @@ const HelpOffers = () => {
                             }
                           >
                             Decline
-                          </button>
-                          <button
-                            className={`status-btn ${
-                              offer.status === "active"
-                                ? "active"
-                                : "not-selected"
-                            }`}
-                            onClick={() =>
-                              handleStatusUpdate(
-                                request.id,
-                                offer.helper_id,
-                                "active"
-                              )
-                            }
-                          >
-                            Active
                           </button>
                         </div>
                       </div>
@@ -268,4 +270,4 @@ const HelpOffers = () => {
   );
 };
 
-export default HelpOffers;
+export default MyHelpOffers;

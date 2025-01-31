@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { GoogleMap, Marker, Circle, InfoWindow } from "@react-google-maps/api";
+import { useNavigate } from "react-router-dom";
+import { formatDate } from "../utils/DateFormatting";
+import "../styling/MapComponent.css";
 
-const MapComponent = ({ points = [] }) => {
+const MapComponent = ({ points = [], selectedRequest, userLocation }) => {
   const { user } = useAuth();
   const [map, setMap] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState(null);
+  const navigate = useNavigate();
 
-  // Ensure user coordinates are valid numbers
-  const userLat = parseFloat(user?.latitude) || 51.5074;
-  const userLng = parseFloat(user?.longitude) || -0.1278;
+  const mapCenter =
+    userLocation ||
+    (selectedRequest && {
+      lat: parseFloat(selectedRequest.latitude),
+      lng: parseFloat(selectedRequest.longitude),
+    }) ||
+    defaultCenter;
 
-  const userLocation = {
-    lat: userLat,
-    lng: userLng,
-  };
-
-  // Filter out points with invalid coordinates
   const validPoints = points.filter((point) => {
     const lat = parseFloat(point.latitude);
     const lng = parseFloat(point.longitude);
@@ -32,8 +34,8 @@ const MapComponent = ({ points = [] }) => {
         overflow: "hidden",
         objectFit: "contain",
       }}
-      center={userLocation}
-      zoom={13}
+      center={mapCenter}
+      zoom={14}
       onLoad={(mapInstance) => setMap(mapInstance)}
     >
       {validPoints.map((point) => (
@@ -47,43 +49,56 @@ const MapComponent = ({ points = [] }) => {
         >
           {selectedPoint === point && (
             <InfoWindow onCloseClick={() => setSelectedPoint(null)}>
-              <div>
-                <strong>
-                  {point.first_name} {point.last_name}
-                </strong>
-                <br />
-                <strong>{point.title}</strong>
-                <br />
-                <strong>Where: {point.postcode}</strong>
-                <br />
-                <a
-                  href={`https://www.google.com/maps?q=${point.latitude},${point.longitude}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View on Google Maps
-                </a>
+              <div className="info-window-content">
+                <div className="info-window-header">
+                  <h3>{point.type}</h3>
+                </div>
+                <div className="info-window-body">
+                  <strong>
+                    {point.first_name} {point.last_name}
+                  </strong>
+                  <br />
+                  <p>{formatDate(point.req_date)}</p>
+                  <p>
+                    <a
+                      href={`https://www.google.com/maps?q=${point.latitude},${point.longitude}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="map-link"
+                    >
+                      View on Google Maps
+                    </a>
+                  </p>
+                  <div className="info-window-actions">
+                    <button
+                      onClick={() => navigate(`/help-requests/${point.id}`)}
+                      className="respond-button"
+                    >
+                      View & Respond
+                    </button>
+                  </div>
+                </div>
               </div>
             </InfoWindow>
           )}
         </Marker>
       ))}
 
-      {user && (
+      {userLocation && (
         <>
           <Marker
             position={userLocation}
             icon={{
-              url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+              url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png",
             }}
           />
           <Circle
             center={userLocation}
             radius={1000}
             options={{
-              fillColor: "blue",
+              fillColor: "green",
               fillOpacity: 0.1,
-              strokeColor: "blue",
+              strokeColor: "green",
               strokeOpacity: 0.8,
               strokeWeight: 2,
             }}

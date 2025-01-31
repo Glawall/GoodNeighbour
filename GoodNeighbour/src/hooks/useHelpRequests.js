@@ -1,11 +1,14 @@
 import { useCallback } from "react";
 import api from "../utils/api-client";
+import { useAuth } from "../context/AuthProvider";
 
 export function useHelpRequests() {
+  const { user } = useAuth();
+
   const getAllHelpRequests = useCallback(
     async ({ sort_by, order, help_type }) => {
       try {
-        const queryString = `?sort_by=${sort_by}&order=${order}${
+        const queryString = `?sort_by=${sort_by || "req_date"}&order=${order}${
           help_type ? `&help_type=${help_type}` : ""
         }`;
         const response = await api.get(`/help-requests${queryString}`);
@@ -31,7 +34,7 @@ export function useHelpRequests() {
   const getByUserId = useCallback(async (userId) => {
     try {
       const response = await api.get(`/users/${userId}/help-requests`);
-      return response.data.helpRequests || [];
+      return response;
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Failed to fetch user's help requests"
@@ -39,25 +42,9 @@ export function useHelpRequests() {
     }
   }, []);
 
-  const createHelpRequest = useCallback(async (requestData) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    try {
-      const response = await api.post("/help-requests", {
-        ...requestData,
-        author_id: user.id,
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(
-        error.response?.data?.message || "Failed to create help request"
-      );
-    }
-  }, []);
-
   return {
     getAllHelpRequests,
     getHelpRequestById,
-    createHelpRequest,
     getByUserId,
   };
 }

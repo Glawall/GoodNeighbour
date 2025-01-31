@@ -1,24 +1,22 @@
 import React from "react";
-import { useAuth } from "../context/AuthProvider";
 import "../styling/HelpRequestCard.css";
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/DateFormatting";
+import StatusBadge from "../common/StatusBadge";
 
-const HelpRequestCard = ({ helpRequest, onSelect, onUpdate }) => {
-  const { user } = useAuth();
-
+const HelpRequestCard = ({ helpRequest, onSelect, selected, distance }) => {
   if (!helpRequest) return null;
 
   return (
-    <div className="help-request-card" onClick={() => onSelect?.(helpRequest)}>
+    <div
+      className={`help-request-card ${selected ? "selected" : ""}`}
+      onClick={() => onSelect(helpRequest)}
+    >
       <div className="help-request-header">
         <h3>{helpRequest.title}</h3>
-        <span className={`status ${helpRequest.status}`}>
-          {helpRequest.status}
-        </span>
+        <StatusBadge status={helpRequest.status} />
       </div>
       <p className="help-type">{helpRequest.help_type}</p>
-      <p className="description">{helpRequest.description}</p>
       <div className="help-request-footer">
         <div className="author-info">
           <p>
@@ -27,6 +25,13 @@ const HelpRequestCard = ({ helpRequest, onSelect, onUpdate }) => {
           </p>
           <p>Location: {helpRequest.author_postcode}</p>
           <p>When: {formatDate(helpRequest.created_at)}</p>
+          {distance && (
+            <p className="distance">
+              {distance < 1
+                ? `${(distance * 1609).toFixed(0)}m away`
+                : `${distance.toFixed(1)} miles away`}
+            </p>
+          )}
         </div>
       </div>
       <div className="card-actions">
@@ -35,7 +40,7 @@ const HelpRequestCard = ({ helpRequest, onSelect, onUpdate }) => {
           className="view-details-link"
           onClick={(e) => e.stopPropagation()}
         >
-          View Details
+          View Details & Respond
         </Link>
       </div>
     </div>
