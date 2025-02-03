@@ -9,7 +9,7 @@ import "./index.css";
 const basePath = import.meta.env.VITE_BASE_PATH || "";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basePath={basePath}>
+  <BrowserRouter basename={basePath}>
     <AuthProvider>
       <GoogleMapsProvider>
         <App />
