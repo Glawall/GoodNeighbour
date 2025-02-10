@@ -52,7 +52,7 @@ const SignUp = () => {
     <div className="auth-container">
       <div className="auth-logo">
         <img
-          src="/Glawall/Logo.png"
+          src="/GoodNeighbour/Logo.png"
           alt="Good Neighbour"
           className="nav-logo"
         />
