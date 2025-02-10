@@ -5,7 +5,6 @@ import FormInput from "../common/FormInput";
 import "../styling/Login.css";
 
 const Login = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
   const [email, setEmail] = useState("");
@@ -40,7 +39,11 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-logo">
-        <img src="/Logo.png" alt="Good Neighbour" className="nav-logo" />
+        <img
+          src="/GoodNeighbour/Logo.png"
+          alt="Good Neighbour"
+          className="nav-logo"
+        />
       </div>
       <h2 className="auth-title">Login</h2>
       {successMessage && (
@@ -64,20 +67,16 @@ const Login = () => {
           required
         />
         {error && <div className="error-message">{error}</div>}
+        <button type="submit" className="btn" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
+        <div className="signup-prompt">
+          <p>Don't have an account?</p>
+          <Link to="/signup" className="signup-link">
+            Sign Up
+          </Link>
+        </div>
       </form>
-      <button
-        onClick={handleSubmit}
-        className="btn login-button"
-        disabled={isLoading}
-      >
-        {isLoading ? "Logging in..." : "Login"}
-      </button>
-      <div className="signup-prompt">
-        <p>Don't have an account?</p>
-        <Link to="/signup" className="signup-link">
-          Sign Up
-        </Link>
-      </div>
     </div>
   );
 };
