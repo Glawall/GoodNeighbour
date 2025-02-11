@@ -157,10 +157,8 @@ const MyHelpOffers = () => {
                     View Details & Comments
                   </Link>
                   <div className="offer-actions">
-                    <p className={`status ${helpOffer.offers[0].status}`}>
-                      {helpOffer.offers[0].status}
-                    </p>
-                    {helpOffer.offers[0].status === "active" && (
+                    {(helpOffer.offers[0].status === "active" ||
+                      helpOffer.offers[0].status === "accepted") && (
                       <button
                         className="btn delete-button"
                         onClick={() =>

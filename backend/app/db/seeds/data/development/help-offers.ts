@@ -10,7 +10,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 1,
     helper_id: 2,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -22,7 +22,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 1,
     helper_id: 4,
-    status: "declined",
+    status: "active",
     created_at: "2024-05-21T15:00:00.000Z",
   },
 
@@ -30,7 +30,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 2,
     helper_id: 3,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -44,7 +44,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 3,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -58,7 +58,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 4,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -78,7 +78,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 5,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -92,7 +92,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 6,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -112,7 +112,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 7,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -126,7 +126,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 8,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -140,7 +140,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 9,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -160,7 +160,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 10,
     helper_id: 1,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -174,7 +174,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 11,
     helper_id: 4,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -194,7 +194,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 13,
     helper_id: 7,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -207,14 +207,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 14,
     helper_id: 9,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 15,
     helper_id: 10,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -234,7 +234,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 17,
     helper_id: 13,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -247,14 +247,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 18,
     helper_id: 15,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 19,
     helper_id: 2,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -267,7 +267,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 20,
     helper_id: 4,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
@@ -275,7 +275,7 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 22,
     helper_id: 5,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -288,14 +288,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 23,
     helper_id: 7,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 24,
     helper_id: 8,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -309,14 +309,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 26,
     helper_id: 10,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 27,
     helper_id: 11,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -329,14 +329,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 28,
     helper_id: 13,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 29,
     helper_id: 14,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -350,14 +350,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 31,
     helper_id: 2,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 32,
     helper_id: 3,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -370,14 +370,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 33,
     helper_id: 5,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 34,
     helper_id: 6,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -391,14 +391,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 36,
     helper_id: 8,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 37,
     helper_id: 9,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
@@ -411,14 +411,14 @@ export const helpOffersData: HelpOffer[] = [
   {
     help_request_id: 38,
     helper_id: 11,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
 
   {
     help_request_id: 39,
     helper_id: 12,
-    status: "accepted",
+    status: "active",
     created_at: "2024-05-21T13:00:00.000Z",
   },
   {
