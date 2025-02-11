@@ -222,7 +222,7 @@ const MyHelpOffers = () => {
                             Accept
                           </button>
                           <button
-                            className="edit-button"
+                            className="btn edit-button"
                             onClick={() =>
                               handleStatusUpdate(
                                 request.id,
@@ -234,7 +234,7 @@ const MyHelpOffers = () => {
                             Pending
                           </button>
                           <button
-                            className="delete-button"
+                            className="btn delete-button"
                             onClick={() =>
                               handleStatusUpdate(
                                 request.id,

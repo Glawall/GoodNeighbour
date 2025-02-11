@@ -77,9 +77,13 @@
 
 .status-filters {
     display: flex;
+    margin-bottom: 1rem;
+    justify-content: flex-start;
     gap: 1rem;
-    margin-bottom: 2rem;
-    justify-content: center;
+}
+
+.status-filters button {
+    margin: 0
 }
 
 .help-offers-count {
