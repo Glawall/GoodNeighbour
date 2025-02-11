@@ -1,6 +1,6 @@
 # GoodNeighbour
 
-A community-focused web application that connects people who need help with those who can provide it. Built with React, Node.js, Express, and PostgreSQL. Features an interactive map to visualize and coordinate help requests in your local area.
+A community-focused web application that connects people who need help with those who can provide it. Built with React, Node.js, Express, and PostgreSQL. Features an interactive map to visualize and coordinate help requests in your local area. Features full Google Maps integration for location-based services.
 
 ## Features
 
@@ -14,6 +14,11 @@ A community-focused web application that connects people who need help with thos
 - 🎯 Help Type Categorization
 - 📍 Distance-Based Filtering
 - 🤝 Help Offer Management
+- 🗺️ Full Google Maps Integration
+  - Interactive maps for visualizing help requests
+  - Distance-based filtering
+  - Route visualization
+  - Mini maps for individual requests
 
 ### User Capabilities
 
@@ -50,7 +55,7 @@ User: Any email in the ddevelpment user database file e.g Cuthbert_Wilkinson47@g
 1. Clone the repository and navigate to the backend folder:
 
 ```bash
-git clone [your-repo-url]
+git clone https://github.com/Glawall/GoodNeighbour
 cd GoodNeighbour/backend
 ```
 

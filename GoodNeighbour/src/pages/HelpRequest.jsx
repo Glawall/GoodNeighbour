@@ -361,7 +361,7 @@ const HelpRequest = () => {
                         </p>
                       </div>
                       <a
-                        href={`https://www.google.com/maps?q=${location.lat},${location.lng}`}
+                        href={`https://www.google.com/maps?q=${requester.latitude},${requester.longitude}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn"

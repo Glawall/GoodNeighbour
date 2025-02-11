@@ -31,7 +31,22 @@ const Header = () => {
             className="nav-logo"
           />
         </Link>
-
+      </div>
+      <div className="nav-container">
+        <nav className="nav-links">
+          <Link to="/help-requests" className="nav-link">
+            View Help Requests
+          </Link>
+          <Link to="/help-requests/create" className="nav-link create-request">
+            Create Help Request
+          </Link>
+          <Link to="/my-help-requests" className="nav-link">
+            My Help Requests
+          </Link>
+          <Link to="/help-offers" className="nav-link">
+            My Help Offers
+          </Link>
+        </nav>
         <div className="profile-section">
           <Link to="/profile">
             <img
@@ -46,21 +61,6 @@ const Header = () => {
           </button>
         </div>
       </div>
-
-      <nav className="nav-links">
-        <Link to="/help-requests" className="nav-link">
-          View Help Requests
-        </Link>
-        <Link to="/help-requests/create" className="nav-link create-request">
-          Create Help Request
-        </Link>
-        <Link to="/my-help-requests" className="nav-link">
-          My Help Requests
-        </Link>
-        <Link to="/help-offers" className="nav-link">
-          My Help Offers
-        </Link>
-      </nav>
       <ConfirmBox
         isOpen={logoutDialog}
         message="Are you sure you want to logout?"
