@@ -39,11 +39,7 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-logo">
-        <img
-          src="/GoodNeighbour/Logo.png"
-          alt="Good Neighbour"
-          className="nav-logo"
-        />
+        <img src="/Logo.png" alt="Good Neighbour" className="nav-logo" />
       </div>
       <h2 className="auth-title">Login</h2>
       {successMessage && (

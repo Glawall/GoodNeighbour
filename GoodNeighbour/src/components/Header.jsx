@@ -25,11 +25,7 @@ const Header = () => {
     <header className="header">
       <div className="header-top">
         <Link to="/" className="logo-link">
-          <img
-            src="/GoodNeighbour/Logo.png"
-            alt="Good Neighbour"
-            className="nav-logo"
-          />
+          <img src="/Logo.png" alt="Good Neighbour" className="nav-logo" />
         </Link>
       </div>
       <div className="nav-container">

@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "NODE_ENV=production vite build",
-    "predeploy": "npm run build && cp CNAME dist/ -- --mode production",
+    "build": "vite build",
+    "predeploy": "npm run build && cp CNAME dist/",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview --host"
   },

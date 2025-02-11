@@ -51,11 +51,7 @@ const SignUp = () => {
   return (
     <div className="auth-container">
       <div className="auth-logo">
-        <img
-          src="/GoodNeighbour/Logo.png"
-          alt="Good Neighbour"
-          className="nav-logo"
-        />
+        <img src="/Logo.png" alt="Good Neighbour" className="nav-logo" />
       </div>
       <div className="auth-header">
         <Link to="/login" className="return-link">

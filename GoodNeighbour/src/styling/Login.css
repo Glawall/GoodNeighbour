@@ -4,29 +4,31 @@
     align-items: center;
     max-width: 600px;
     width: 100%;
-    margin: 2rem auto;
-    padding: 2rem;
+    margin: 3rem auto;
+    padding: 5rem;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .auth-logo {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+    position: static;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .auth-logo .nav-logo {
-    height: 100px;
+    height: 120px;
     width: auto;
-    border-radius: 10%;
+    border-radius: 8px;
 }
 
 .auth-title {
     text-align: center;
     width: 100%;
-    margin-bottom: 2rem;
+    margin: 1rem 0 2rem 0;
+    color: var(--primary-green);
 }
 
 .login-header {
