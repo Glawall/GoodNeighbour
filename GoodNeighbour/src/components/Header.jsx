@@ -52,7 +52,7 @@ const Header = () => {
             />
           </Link>
           <p className="username-text">{user.username}</p>
-          <button className="btn" onClick={handleLogoutClick}>
+          <button className="nav-link" onClick={handleLogoutClick}>
             Logout
           </button>
         </div>
