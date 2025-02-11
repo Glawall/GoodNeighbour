@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    base: mode === "production" ? "/GoodNeighbour/" : "/",
+    base: "/",
     build: {
       outDir: "dist",
     },
