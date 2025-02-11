@@ -1,5 +1,5 @@
 .header {
-    background-color: var(--light-green);
+    background-color: var(--primary-green);
     position: sticky;
     top: 0;
     width: 100vw;
@@ -18,7 +18,7 @@
     justify-content: flex-start;
     padding: 0.5rem 2rem;
     height: 70px;
-    background-color: var(--light-green);
+    background-color: var(--primary-green);
 }
 
 .nav-container {
@@ -26,7 +26,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0rem 2rem;
-    background-color: var(--light-green);
+    background-color: var(--primary-green);
     margin-top: auto;
 }
 
